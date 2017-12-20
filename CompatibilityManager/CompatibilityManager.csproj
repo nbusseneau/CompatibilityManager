@@ -33,4 +33,8 @@
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WpfLocalizeExtension" Version="3.0.1" />
+  </ItemGroup>
 </Project>
