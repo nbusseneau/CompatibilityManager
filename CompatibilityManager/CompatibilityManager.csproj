@@ -1,10 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
+    <!-- Build properties -->
     <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
     <TargetFramework>net45</TargetFramework>
     <OutputType>WinExe</OutputType>
     <RunCommand>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).exe</RunCommand>
     <ApplicationManifest>App.manifest</ApplicationManifest>
+    
+    <!-- Assembly information -->
+    <Description>A Windows app for bulk managing compatibility flags.</Description>
+    <Company>SkyCorp</Company>
+    <Product>Compatibility Manager</Product>
+    <Copyright>© 2017 Skymirrh</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
