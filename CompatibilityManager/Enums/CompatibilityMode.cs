@@ -15,4 +15,15 @@ namespace CompatibilityManager.Enums
         WIN7RTM,
         WIN8RTM,
     }
+
+    public static class CompatibilityModeExtensions
+    {
+        /// <summary>
+        /// Convert a CompatibilityMode value to its AppCompatFlag REG_SZ representation.
+        /// </summary>
+        public static string ToRegistryString(this CompatibilityMode enumValue)
+        {
+            return enumValue.GetDescription();
+        }
+    }
 }
