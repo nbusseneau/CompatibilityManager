@@ -19,6 +19,9 @@
     <EmbeddedResource Update="Properties\Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
     <Compile Update="Properties\Resources.Designer.cs" AutoGen="True" DependentUpon="Resources.resx" DesignTime="True" />
 
+    <EmbeddedResource Update="Resources\Strings.resx" Generator="PublicResXFileCodeGenerator" LastGenOutput="Strings.Designer.cs" />
+    <Compile Update="Resources\Strings.Designer.cs" AutoGen="True" DependentUpon="Strings.resx" DesignTime="True" />
+
     <!-- Settings -->
     <None Update="Properties\Settings.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="Settings.Designer.cs" />
     <Compile Update="Properties\Settings.Designer.cs" AutoGen="True" DependentUpon="Settings.settings" />
