@@ -4,6 +4,7 @@
     <TargetFramework>net45</TargetFramework>
     <OutputType>WinExe</OutputType>
     <RunCommand>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).exe</RunCommand>
+    <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
