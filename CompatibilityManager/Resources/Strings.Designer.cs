@@ -240,4 +240,14 @@ namespace CompatibilityManager.Resources {
                 return ResourceManager.GetString("runAsAdministrator", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t detect OS version. This should never happen: if it happened, either all hell broke loose, Windows 11 got released, or I&apos;m (most likely) just a very bad programmer. Please report ASAP!.
+        /// </summary>
+        public static string unknownOSException {
+            get {
+                return ResourceManager.GetString("unknownOSException", resourceCulture);
+            }
+        }
+    }
 }
