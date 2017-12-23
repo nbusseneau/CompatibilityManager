@@ -9,7 +9,11 @@
         lex:ResxLocalizationProvider.DefaultAssembly="CompatibilityManager"
         lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        SizeToContent="WidthAndHeight"
+        ResizeMode="CanResizeWithGrip"
+        MinWidth="700"
+        MinHeight="215"
+        Title="MainWindow">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,6 +28,11 @@
     </Window.DataContext>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="255" />
+        </Grid.ColumnDefinitions>
+
         <ContentPresenter Grid.Column="0" Content="{Binding PathsViewModel}" />
         <ContentPresenter Grid.Column="1" Content="{Binding CompatibilityViewModel}" />
     </Grid>
