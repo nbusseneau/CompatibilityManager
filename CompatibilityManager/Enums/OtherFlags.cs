@@ -17,6 +17,16 @@ namespace CompatibilityManager.Enums
     public static class OtherExtensions
     {
         /// <summary>
+        /// Set or unset a specific flag according to given value.
+        /// </summary>
+        public static OtherFlags SetFlag(this OtherFlags flags, OtherFlags flag, bool value)
+        {
+            if (value) { flags |= flag; }
+            else { flags &= ~flag; }
+            return flags;
+        }
+
+        /// <summary>
         /// Convert Other flags to their AppCompatFlag REG_SZ representation.
         /// </summary>
         public static string ToRegistryString(this OtherFlags enumValue)
