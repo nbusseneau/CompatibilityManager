@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="colorMode" xml:space="preserve">
+  <data name="ColorMode" xml:space="preserve">
     <value>Reduced color mode</value>
   </data>
   <data name="ColorMode_COLOR16BIT" xml:space="preserve">
@@ -126,7 +126,7 @@
   <data name="ColorMode_COLOR256" xml:space="preserve">
     <value>8-bit (256) color</value>
   </data>
-  <data name="compatibilityMode" xml:space="preserve">
+  <data name="CompatibilityMode" xml:space="preserve">
     <value>Run this program in compatibility mode for:</value>
   </data>
   <data name="CompatibilityMode_VISTARTM" xml:space="preserve">
@@ -156,10 +156,10 @@
   <data name="CompatibilityMode_WINXPSP3" xml:space="preserve">
     <value>Windows XP (Service Pack 3)</value>
   </data>
-  <data name="disableFullscreenOptimizations" xml:space="preserve">
+  <data name="DisableFullscreenOptimizations" xml:space="preserve">
     <value>Disable fullscreen optimizations</value>
   </data>
-  <data name="dpiScaling" xml:space="preserve">
+  <data name="DPIScaling" xml:space="preserve">
     <value>Override high DPI scaling behavior.
 Scaling performed by:</value>
   </data>
@@ -172,10 +172,10 @@ Scaling performed by:</value>
   <data name="DPIScaling_HIGHDPIAWARE" xml:space="preserve">
     <value>Application</value>
   </data>
-  <data name="resolution640x480" xml:space="preserve">
+  <data name="Resolution640x480" xml:space="preserve">
     <value>Run in 640 x 480 resolution</value>
   </data>
-  <data name="runAsAdministrator" xml:space="preserve">
+  <data name="RunAsAdministrator" xml:space="preserve">
     <value>Run this program as an administrator</value>
   </data>
   <data name="unknownOSException" xml:space="preserve">

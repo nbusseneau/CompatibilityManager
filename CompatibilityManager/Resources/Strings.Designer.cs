@@ -63,9 +63,9 @@ namespace CompatibilityManager.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Reduced color mode.
         /// </summary>
-        public static string colorMode {
+        public static string ColorMode {
             get {
-                return ResourceManager.GetString("colorMode", resourceCulture);
+                return ResourceManager.GetString("ColorMode", resourceCulture);
             }
         }
         
@@ -90,9 +90,9 @@ namespace CompatibilityManager.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Run this program in compatibility mode for:.
         /// </summary>
-        public static string compatibilityMode {
+        public static string CompatibilityMode {
             get {
-                return ResourceManager.GetString("compatibilityMode", resourceCulture);
+                return ResourceManager.GetString("CompatibilityMode", resourceCulture);
             }
         }
         
@@ -180,9 +180,9 @@ namespace CompatibilityManager.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Disable fullscreen optimizations.
         /// </summary>
-        public static string disableFullscreenOptimizations {
+        public static string DisableFullscreenOptimizations {
             get {
-                return ResourceManager.GetString("disableFullscreenOptimizations", resourceCulture);
+                return ResourceManager.GetString("DisableFullscreenOptimizations", resourceCulture);
             }
         }
         
@@ -190,9 +190,9 @@ namespace CompatibilityManager.Resources {
         ///   Looks up a localized string similar to Override high DPI scaling behavior.
         ///Scaling performed by:.
         /// </summary>
-        public static string dpiScaling {
+        public static string DPIScaling {
             get {
-                return ResourceManager.GetString("dpiScaling", resourceCulture);
+                return ResourceManager.GetString("DPIScaling", resourceCulture);
             }
         }
         
@@ -226,18 +226,18 @@ namespace CompatibilityManager.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Run in 640 x 480 resolution.
         /// </summary>
-        public static string resolution640x480 {
+        public static string Resolution640x480 {
             get {
-                return ResourceManager.GetString("resolution640x480", resourceCulture);
+                return ResourceManager.GetString("Resolution640x480", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Run this program as an administrator.
         /// </summary>
-        public static string runAsAdministrator {
+        public static string RunAsAdministrator {
+                return ResourceManager.GetString("RunAsAdministrator", resourceCulture);
             get {
-                return ResourceManager.GetString("runAsAdministrator", resourceCulture);
             }
         }
         
