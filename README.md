@@ -1,6 +1,6 @@
 # Compatibility Manager
 
-A Windows app for bulk managing compatibility flags. It allows you to quickly enable/disable compatibility settings for multiple executables at once, instead of having to go through them one by one.
+A Windows app for bulk editing compatibility flags. It allows you to quickly enable/disable compatibility settings for multiple executables at once, instead of having to go through them one by one.
 
 ## But why?
 
