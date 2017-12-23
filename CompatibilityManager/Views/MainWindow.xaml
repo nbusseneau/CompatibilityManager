@@ -13,7 +13,7 @@
         ResizeMode="CanResizeWithGrip"
         MinWidth="700"
         MinHeight="215"
-        Title="MainWindow">
+        Title="CompatibilityManager">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
