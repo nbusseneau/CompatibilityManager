@@ -181,16 +181,28 @@ Scaling performed by:</value>
   <data name="UnknownOSException" xml:space="preserve">
     <value>Couldn't detect OS version. {0}</value>
   </data>
+  <data name="AddFiles" xml:space="preserve">
+    <value>Add files</value>
+  </data>
   <data name="AddFilesDescription" xml:space="preserve">
     <value>Pick one or more executables to add to the list</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Add folder</value>
   </data>
   <data name="AddFolderDescription" xml:space="preserve">
     <value>Pick a folder to add to the list.
 The application will recursively set flags on all executables found in this folder.
 If you pick something stupid like "C:"... well, you have been warned! :)</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply flags</value>
+  </data>
   <data name="CatastrophicFailureException" xml:space="preserve">
     <value>This should never happen: if it happened, either all hell broke loose, a Windows update broke my stuff (fuck you too, Bill!), or (most likely) I'm just a very bad programmer. Please report ASAP!</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Clear list</value>
   </data>
   <data name="HKLM" xml:space="preserve">
     <value>Change settings for all users</value>
