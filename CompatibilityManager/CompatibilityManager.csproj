@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Prism.Core" Version="6.3.0" />
     <PackageReference Include="WpfLocalizeExtension" Version="3.0.1" />
   </ItemGroup>
 </Project>
