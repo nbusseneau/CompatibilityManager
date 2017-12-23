@@ -61,6 +61,26 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick one or more executables to add to the list.
+        /// </summary>
+        public static string AddFilesDescription {
+            get {
+                return ResourceManager.GetString("AddFilesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick a folder to add to the list.
+        ///The application will recursively set flags on all executables found in this folder.
+        ///If you pick something stupid like &quot;C:&quot;... well, you have been warned! :).
+        /// </summary>
+        public static string AddFolderDescription {
+            get {
+                return ResourceManager.GetString("AddFolderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This should never happen: if it happened, either all hell broke loose, a Windows update broke my stuff (fuck you too, Bill!), or (most likely) I&apos;m just a very bad programmer. Please report ASAP!.
         /// </summary>
         public static string CatastrophicFailureException {
