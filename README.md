@@ -23,3 +23,8 @@ So, I'd just like to be able to disable them once and for all, Microsoft please 
 ## Why isn't it called "Fullscreen Optimizations"™ Manager then?
 
 Because it does a bit more than that. Please don't assume Compatibility Manager's intended behaviour, that triggers me.
+
+## What are all these compatibility settings for anyway?
+
+The app mirrors exactly what you'd find in the Compatibility tab of an executable's properties.
+A good place to start would be the [official Windows documentation](https://support.microsoft.com/en-us/help/15078/windows-make-older-programs-compatible).
