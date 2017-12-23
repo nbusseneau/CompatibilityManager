@@ -178,7 +178,13 @@ Scaling performed by:</value>
   <data name="RunAsAdministrator" xml:space="preserve">
     <value>Run this program as an administrator</value>
   </data>
-  <data name="unknownOSException" xml:space="preserve">
-    <value>Couldn't detect OS version. This should never happen: if it happened, either all hell broke loose, Windows 11 got released, or I'm (most likely) just a very bad programmer. Please report ASAP!</value>
+  <data name="UnknownOSException" xml:space="preserve">
+    <value>Couldn't detect OS version. {0}</value>
+  </data>
+  <data name="CatastrophicFailureException" xml:space="preserve">
+    <value>This should never happen: if it happened, either all hell broke loose, a Windows update broke my stuff (fuck you too, Bill!), or (most likely) I'm just a very bad programmer. Please report ASAP!</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Here be dragons!</value>
   </data>
 </root>

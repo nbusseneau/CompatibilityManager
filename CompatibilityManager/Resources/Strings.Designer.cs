@@ -61,6 +61,15 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This should never happen: if it happened, either all hell broke loose, a Windows update broke my stuff (fuck you too, Bill!), or (most likely) I&apos;m just a very bad programmer. Please report ASAP!.
+        /// </summary>
+        public static string CatastrophicFailureException {
+            get {
+                return ResourceManager.GetString("CatastrophicFailureException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reduced color mode.
         /// </summary>
         public static string ColorMode {
@@ -236,17 +245,26 @@ namespace CompatibilityManager.Resources {
         ///   Looks up a localized string similar to Run this program as an administrator.
         /// </summary>
         public static string RunAsAdministrator {
-                return ResourceManager.GetString("RunAsAdministrator", resourceCulture);
             get {
+                return ResourceManager.GetString("RunAsAdministrator", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t detect OS version. This should never happen: if it happened, either all hell broke loose, Windows 11 got released, or I&apos;m (most likely) just a very bad programmer. Please report ASAP!.
+        ///   Looks up a localized string similar to Couldn&apos;t detect OS version. {0}.
         /// </summary>
-        public static string unknownOSException {
+        public static string UnknownOSException {
             get {
-                return ResourceManager.GetString("unknownOSException", resourceCulture);
+                return ResourceManager.GetString("UnknownOSException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Here be dragons!.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

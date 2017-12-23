@@ -32,8 +32,8 @@ namespace CompatibilityManager.Services
                 if (version.Minor >= 1) { return Services.OSVersion.Windows_XP; }
                 return Services.OSVersion.Windows_2000;
             }
-
-            throw new InvalidOperationException(Resources.Strings.unknownOSException);
+            
+            throw new InvalidOperationException(string.Format(Resources.Strings.UnknownOSException, Resources.Strings.CatastrophicFailureException));
         }
 
         private static OSVersion? osVersion;
