@@ -233,6 +233,15 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change settings for all users.
+        /// </summary>
+        public static string HKLM {
+            get {
+                return ResourceManager.GetString("HKLM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run in 640 x 480 resolution.
         /// </summary>
         public static string Resolution640x480 {

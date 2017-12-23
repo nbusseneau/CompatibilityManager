@@ -184,6 +184,9 @@ Scaling performed by:</value>
   <data name="CatastrophicFailureException" xml:space="preserve">
     <value>This should never happen: if it happened, either all hell broke loose, a Windows update broke my stuff (fuck you too, Bill!), or (most likely) I'm just a very bad programmer. Please report ASAP!</value>
   </data>
+  <data name="HKLM" xml:space="preserve">
+    <value>Change settings for all users</value>
+  </data>
   <data name="Warning" xml:space="preserve">
     <value>Here be dragons!</value>
   </data>
