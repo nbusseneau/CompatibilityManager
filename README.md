@@ -2,6 +2,14 @@
 
 A Windows app for bulk editing compatibility flags. It allows you to quickly enable/disable compatibility settings for multiple executables at once, instead of having to go through them one by one.
 
+## Installation
+
+1. Download the [latest release](https://github.com/Skymirrh/CompatibilityManager/releases/latest).
+1. Unpack it.
+1. Run `CompatibilityManager.exe`.
+1. ???
+1. Profit.
+
 ## But why?
 
 Because in Windows 10 Fall Creators Update (1709), there is no possibility to globally "disable fullscreen optimizations"™.
