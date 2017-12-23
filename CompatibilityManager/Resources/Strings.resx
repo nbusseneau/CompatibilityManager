@@ -201,6 +201,11 @@ If you pick something stupid like "C:"... well, you have been warned! :)</value>
   <data name="CatastrophicFailureException" xml:space="preserve">
     <value>This should never happen: if it happened, either all hell broke loose, a Windows update broke my stuff (fuck you too, Bill!), or (most likely) I'm just a very bad programmer. Please report ASAP!</value>
   </data>
+  <data name="ClearFlagsWarning" xml:space="preserve">
+    <value>No compatibility flags selected. If you continue, this will clear all flags set on all items in the list, removing them from the registry entries.
+
+Confirm?</value>
+  </data>
   <data name="Reset" xml:space="preserve">
     <value>Clear list</value>
   </data>

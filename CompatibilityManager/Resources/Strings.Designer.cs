@@ -117,6 +117,17 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No compatibility flags selected. If you continue, this will clear all flags set on all items in the list, removing them from the registry entries.
+        ///
+        ///Confirm?.
+        /// </summary>
+        public static string ClearFlagsWarning {
+            get {
+                return ResourceManager.GetString("ClearFlagsWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reduced color mode.
         /// </summary>
         public static string ColorMode {

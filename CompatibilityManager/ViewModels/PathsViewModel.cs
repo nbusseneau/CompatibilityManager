@@ -108,6 +108,27 @@ namespace CompatibilityManager.ViewModels
 
         private void Apply()
         {
+            var registryKey = this.parent.CompatibilityViewModel.HKLMChecked ? Registry.LocalMachine.OpenSubKey(PathsViewModel.AppCompatFlags, true) : Registry.CurrentUser.OpenSubKey(PathsViewModel.AppCompatFlags, true);
+            var appCompatFlags = this.parent.CompatibilityViewModel.RegistryString;
+
+            if (string.IsNullOrWhiteSpace(appCompatFlags))
+            {
+                var warning = MessageBox.Show(Application.Current.MainWindow, Resources.Strings.ClearFlagsWarning, Resources.Strings.Warning, MessageBoxButton.OKCancel);
+                if (warning != MessageBoxResult.OK) { return; }
+
+                foreach (var path in this.Executables)
+                {
+                    registryKey.DeleteValue(path);
+                }
+            }
+
+            else
+            {
+                foreach (var path in this.Executables)
+                {
+                    registryKey.SetValue(path, appCompatFlags);
+                }
+            }
         }
 
         private bool CanApply()
