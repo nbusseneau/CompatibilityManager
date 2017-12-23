@@ -18,6 +18,12 @@ namespace CompatibilityManager.ViewModels
 
         #endregion
 
+        #region Parent ViewModel
+
+        private MainViewModel parent;
+
+        #endregion
+
         #region Properties
 
         public ObservableRangeCollection<string> Executables { get; set; }
@@ -35,8 +41,10 @@ namespace CompatibilityManager.ViewModels
 
         #region Constructor
 
-        public PathsViewModel()
+        public PathsViewModel(MainViewModel parent)
         {
+            this.parent = parent;
+
             this.Executables = new ObservableRangeCollection<string>();
             this.Executables.CollectionChanged += this.Executables_CollectionChanged;
 

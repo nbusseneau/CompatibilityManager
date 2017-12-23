@@ -7,6 +7,12 @@ namespace CompatibilityManager.ViewModels
 {
     public class CompatibilityViewModel : BindableBase
     {
+        #region Parent ViewModel
+
+        private MainViewModel parent;
+
+        #endregion
+
         #region Checkboxes properties
 
         private bool compatibilityModeChecked;
@@ -66,6 +72,15 @@ namespace CompatibilityManager.ViewModels
         public ColorMode ColorMode { get; set; }
         public DPIScaling DPIScaling { get; set; }
         public OtherFlags OtherFlags { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public CompatibilityViewModel(MainViewModel parent)
+        {
+            this.parent = parent;
+        }
 
         #endregion
     }
