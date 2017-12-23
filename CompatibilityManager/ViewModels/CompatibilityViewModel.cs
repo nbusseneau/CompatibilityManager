@@ -73,6 +73,30 @@ namespace CompatibilityManager.ViewModels
         public DPIScaling DPIScaling { get; set; }
         public OtherFlags OtherFlags { get; set; }
 
+        public string RegistryString
+        {
+            get
+            {
+                var settings = new List<string>()
+                {
+                    this.CompatibilityMode.ToRegistryString(),
+                    this.ColorMode.ToRegistryString(),
+                    this.DPIScaling.ToRegistryString(),
+                    this.OtherFlags.ToRegistryString(),
+                }.Where(s => !string.IsNullOrWhiteSpace(s));
+
+                var appCompatFlags = string.Join(" ", settings);
+
+                // On Windows 8 or above, a tilde is appended at beginning of the string.
+                if (!string.IsNullOrWhiteSpace(appCompatFlags) && Services.OSVersionServices.IsWindows8OrAbove())
+                {
+                    appCompatFlags = string.Format("~ {0}", appCompatFlags);
+                }
+
+                return appCompatFlags;
+            }
+        }
+
         #endregion
 
         #region Constructor
