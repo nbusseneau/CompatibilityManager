@@ -4,7 +4,7 @@ A Windows app for bulk editing compatibility flags. It allows you to quickly ena
 
 ## Installation
 
-1. Download the [latest release](https://github.com/Skymirrh/CompatibilityManager/releases/latest).
+1. [Download the latest release.](https://github.com/Skymirrh/CompatibilityManager/releases/latest)
 1. Unpack it.
 1. Run `CompatibilityManager.exe`.
 1. ???
