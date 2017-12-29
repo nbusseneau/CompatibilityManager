@@ -58,13 +58,14 @@ namespace CompatibilityManager.Enums
         /// </summary>
         public static TEnum FromRegistryString<TEnum>(string registryString, Dictionary<TEnum, string> descriptions)
         {
-            var substrings = registryString.Split();
-            foreach (var substring in substrings)
-            {
-                var matches = descriptions.Where(kvp => kvp.Value.Equals(substring));
-                if (matches.Any()) { return matches.First().Key; }
-            }
+            var matches = descriptions.Where(kvp => registryString.Contains(kvp.Value));
+            if (matches.Any()) { return matches.Last().Key; }
             return default(TEnum);
+
+            // For future reference, the reason for using Last instead of First is due to DPIScaling:
+            //  DPIScaling.DPIUNAWARE => "DPIUNAWARE"
+            //  DPIScaling.GDIDPISCALING => "GDIDPISCALING DPIUNAWARE"
+            // Since GDIDPISCALING registry string also contains DPIUNAWARE, we have to make sure we don't use DPIUNAWARE instead of GDIDPISCALING by mistake.
         }
     }
 }
