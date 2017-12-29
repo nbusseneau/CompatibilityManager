@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace CompatibilityManager.Enums
+namespace CompatibilityManager.Services
 {
     /// <summary>
     /// Generic helper and extension methods for Enum types.
     /// The 'where T : struct, IComparable, IFormattable, IConvertible' hack is to try and constraint on Enum types only.
     /// </summary>
-    public static class EnumHelpers
+    public static class EnumServices
     {
         private static TAttribute GetAttributeOfType<TAttribute, TEnum>(this TEnum enumValue)
             where TAttribute : Attribute

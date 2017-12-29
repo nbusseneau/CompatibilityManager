@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CompatibilityManager.Services;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace CompatibilityManager.Enums
@@ -17,20 +18,20 @@ namespace CompatibilityManager.Enums
         WIN8RTM,
     }
 
-    public static class CompatibilityModeHelpers
+    public static class CompatibilityModeServices
     {
         private static Dictionary<CompatibilityMode, string> descriptions;
         /// <summary>
         /// CompatibilityMode Description lookup table.
         /// </summary>
-        public static Dictionary<CompatibilityMode, string> Descriptions => descriptions ?? (descriptions = EnumHelpers.GetDescriptions<CompatibilityMode>());
+        public static Dictionary<CompatibilityMode, string> Descriptions => descriptions ?? (descriptions = EnumServices.GetDescriptions<CompatibilityMode>());
 
         /// <summary>
         /// Convert a CompatibilityMode value to its AppCompatFlag REG_SZ representation.
         /// </summary>
         public static string ToRegistryString(this CompatibilityMode enumValue)
         {
-            return EnumHelpers.ToRegistryString(enumValue, CompatibilityModeHelpers.Descriptions);
+            return EnumServices.ToRegistryString(enumValue, CompatibilityModeServices.Descriptions);
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace CompatibilityManager.Enums
         /// </summary>
         public static CompatibilityMode FromRegistryString(string registryString)
         {
-            return EnumHelpers.FromRegistryString<CompatibilityMode>(registryString, CompatibilityModeHelpers.Descriptions);
+            return EnumServices.FromRegistryString<CompatibilityMode>(registryString, CompatibilityModeServices.Descriptions);
         }
     }
 }
