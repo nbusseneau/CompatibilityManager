@@ -17,7 +17,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="CompatibilityTemplate.xaml" />
+                <ResourceDictionary Source="CompatibilitySettingsTemplate.xaml" />
                 <ResourceDictionary Source="PathsTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -34,6 +34,6 @@
         </Grid.ColumnDefinitions>
 
         <ContentPresenter Grid.Column="0" Content="{Binding PathsViewModel}" />
-        <ContentPresenter Grid.Column="1" Content="{Binding CompatibilityViewModel}" />
+        <ContentPresenter Grid.Column="1" Content="{Binding CompatibilitySettingsViewModel}" />
     </Grid>
 </Window>

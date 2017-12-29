@@ -108,8 +108,8 @@ namespace CompatibilityManager.ViewModels
 
         private void Apply()
         {
-            var registryKey = this.parent.CompatibilityViewModel.HKLMChecked ? Registry.LocalMachine.OpenSubKey(PathsViewModel.AppCompatFlags, true) : Registry.CurrentUser.OpenSubKey(PathsViewModel.AppCompatFlags, true);
-            var appCompatFlags = this.parent.CompatibilityViewModel.RegistryString;
+            var registryKey = this.parent.CompatibilitySettingsViewModel.HKLMChecked ? Registry.LocalMachine.OpenSubKey(PathsViewModel.AppCompatFlags, true) : Registry.CurrentUser.OpenSubKey(PathsViewModel.AppCompatFlags, true);
+            var appCompatFlags = this.parent.CompatibilitySettingsViewModel.RegistryString;
 
             if (string.IsNullOrWhiteSpace(appCompatFlags))
             {

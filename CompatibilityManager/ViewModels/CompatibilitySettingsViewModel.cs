@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CompatibilityManager.ViewModels
 {
-    public class CompatibilityViewModel : BindableBase
+    public class CompatibilitySettingsViewModel : BindableBase
     {
         #region Parent ViewModel
 
@@ -112,9 +112,9 @@ namespace CompatibilityManager.ViewModels
 
         #endregion
 
-        #region Constructor
+        #region Constructors
 
-        public CompatibilityViewModel(MainViewModel parent)
+        public CompatibilitySettingsViewModel(MainViewModel parent)
         {
             this.parent = parent;
         }

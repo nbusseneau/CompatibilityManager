@@ -3,7 +3,7 @@
                     xmlns:enum="clr-namespace:CompatibilityManager.Enums"
                     xmlns:vm="clr-namespace:CompatibilityManager.ViewModels"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com">
-    <DataTemplate DataType="{x:Type vm:CompatibilityViewModel}">
+    <DataTemplate DataType="{x:Type vm:CompatibilitySettingsViewModel}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
