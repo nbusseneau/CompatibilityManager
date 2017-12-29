@@ -52,5 +52,19 @@ namespace CompatibilityManager.Enums
         {
             return descriptions[enumValue];
         }
+
+        /// <summary>
+        /// Convert an AppCompatFlag REG_SZ to its TEnum representation based on a Description lookup table.
+        /// </summary>
+        public static TEnum FromRegistryString<TEnum>(string registryString, Dictionary<TEnum, string> descriptions)
+        {
+            var substrings = registryString.Split();
+            foreach (var substring in substrings)
+            {
+                var matches = descriptions.Where(kvp => kvp.Value.Equals(substring));
+                if (matches.Any()) { return matches.First().Key; }
+            }
+            return default(TEnum);
+        }
     }
 }

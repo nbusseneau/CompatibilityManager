@@ -35,5 +35,20 @@ namespace CompatibilityManager.Enums
             }
             return string.Join(" ", appCompatFlags);
         }
+
+        /// <summary>
+        /// Convert an AppCompatFlag REG_SZ to its OtherFlags representation.
+        /// </summary>
+        public static OtherFlags FromRegistryString(string registryString)
+        {
+            var otherFlags = OtherFlags.None;
+            var substrings = registryString.Split();
+            foreach (var substring in substrings)
+            {
+                var matches = descriptions.Where(kvp => kvp.Value.Equals(substring));
+                if (matches.Any()) { otherFlags |= matches.First().Key; }
+            }
+            return otherFlags;
+        }
     }
 }

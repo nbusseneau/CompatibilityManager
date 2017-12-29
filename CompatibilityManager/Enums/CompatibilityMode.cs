@@ -32,5 +32,13 @@ namespace CompatibilityManager.Enums
         {
             return EnumHelpers.ToRegistryString(enumValue, CompatibilityModeHelpers.Descriptions);
         }
+
+        /// <summary>
+        /// Convert an AppCompatFlag REG_SZ to its CompatibilityMode representation.
+        /// </summary>
+        public static CompatibilityMode FromRegistryString(string registryString)
+        {
+            return EnumHelpers.FromRegistryString<CompatibilityMode>(registryString, CompatibilityModeHelpers.Descriptions);
+        }
     }
 }
