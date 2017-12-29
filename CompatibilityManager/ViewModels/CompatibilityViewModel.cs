@@ -40,21 +40,21 @@ namespace CompatibilityManager.ViewModels
         public bool Resolution640x480Checked
         {
             get => this.resolution640x480Checked;
-            set => SetProperty(ref this.resolution640x480Checked, value, () => { this.OtherFlags = this.OtherFlags.SetFlag(OtherFlags.RESOLUTION640X480, value); });
+            set => SetProperty(ref this.resolution640x480Checked, value, () => { this.SetOtherFlag(OtherFlags.RESOLUTION640X480, value); });
         }
 
         private bool disableFullscreenOptimizationsChecked;
         public bool DisableFullscreenOptimizationsChecked
         {
             get => this.disableFullscreenOptimizationsChecked;
-            set => SetProperty(ref this.disableFullscreenOptimizationsChecked, value, () => { this.OtherFlags = this.OtherFlags.SetFlag(OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE, value); });
+            set => SetProperty(ref this.disableFullscreenOptimizationsChecked, value, () => { this.SetOtherFlag(OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE, value); });
         }
 
         private bool runAsAdministratorChecked;
         public bool RunAsAdministratorChecked
         {
             get => this.runAsAdministratorChecked;
-            set => SetProperty(ref this.runAsAdministratorChecked, value, () => { this.OtherFlags = this.OtherFlags.SetFlag(OtherFlags.RUNASADMIN, value); });
+            set => SetProperty(ref this.runAsAdministratorChecked, value, () => { this.SetOtherFlag(OtherFlags.RUNASADMIN, value); });
         }
 
         private bool hklmChecked;
@@ -62,6 +62,19 @@ namespace CompatibilityManager.ViewModels
         {
             get => this.hklmChecked;
             set => SetProperty(ref this.hklmChecked, value);
+        }
+
+        #endregion
+
+        #region Helper methods
+
+        /// <summary>
+        /// Set or unset a specific OtherFlag according to given value.
+        /// </summary>
+        public void SetOtherFlag(OtherFlags flag, bool value)
+        {
+            if (value) { this.OtherFlags |= flag; }
+            else { this.OtherFlags &= ~flag; }
         }
 
         #endregion
