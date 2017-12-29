@@ -45,7 +45,7 @@ namespace CompatibilityManager.Enums
             var substrings = registryString.Split();
             foreach (var substring in substrings)
             {
-                var matches = descriptions.Where(kvp => kvp.Value.Equals(substring));
+                var matches = OtherFlagsHelpers.Descriptions.Where(kvp => kvp.Value.Equals(substring));
                 if (matches.Any()) { otherFlags |= matches.First().Key; }
             }
             return otherFlags;
