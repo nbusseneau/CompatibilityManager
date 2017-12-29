@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace CompatibilityManager.Enums
 {
@@ -10,14 +11,20 @@ namespace CompatibilityManager.Enums
         [Description("GDIDPISCALING DPIUNAWARE")] GDIDPISCALING,
     }
 
-    public static class DPIScalingExtensions
+    public static class DPIScalingHelpers
     {
+        private static Dictionary<DPIScaling, string> descriptions;
+        /// <summary>
+        /// DPIScaling Description lookup table.
+        /// </summary>
+        public static Dictionary<DPIScaling, string> Descriptions => descriptions ?? (descriptions = EnumHelpers.GetDescriptions<DPIScaling>());
+
         /// <summary>
         /// Convert a DPIScaling value to its AppCompatFlag REG_SZ representation.
         /// </summary>
         public static string ToRegistryString(this DPIScaling enumValue)
         {
-            return enumValue.GetDescription();
+            return EnumHelpers.ToRegistryString(enumValue, DPIScalingHelpers.Descriptions);
         }
     }
 }

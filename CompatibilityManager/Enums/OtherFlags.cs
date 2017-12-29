@@ -14,17 +14,13 @@ namespace CompatibilityManager.Enums
         RUNASADMIN                                 = 0b100,
     }
 
-    public static class OtherExtensions
+    public static class OtherFlagsHelpers
     {
+        private static Dictionary<OtherFlags, string> descriptions;
         /// <summary>
-        /// Set or unset a specific flag according to given value.
+        /// OtherFlags Description lookup table.
         /// </summary>
-        public static OtherFlags SetFlag(this OtherFlags flags, OtherFlags flag, bool value)
-        {
-            if (value) { flags |= flag; }
-            else { flags &= ~flag; }
-            return flags;
-        }
+        public static Dictionary<OtherFlags, string> Descriptions => descriptions ?? (descriptions = EnumHelpers.GetDescriptions<OtherFlags>());
 
         /// <summary>
         /// Convert Other flags to their AppCompatFlag REG_SZ representation.
@@ -32,10 +28,10 @@ namespace CompatibilityManager.Enums
         public static string ToRegistryString(this OtherFlags enumValue)
         {
             var appCompatFlags = new List<string>();
-            var exceptions = new OtherFlags[] { OtherFlags.None };
-            foreach (var flag in Enum.GetValues(typeof(OtherFlags)).Cast<OtherFlags>().Except(exceptions))
+            foreach (var flag in Enum.GetValues(typeof(OtherFlags)).Cast<OtherFlags>())
             {
-                if (enumValue.HasFlag(flag)) { appCompatFlags.Add(flag.GetDescription()); }
+                var description = OtherFlagsHelpers.Descriptions[flag];
+                if (enumValue.HasFlag(flag) && !string.IsNullOrWhiteSpace(description)) { appCompatFlags.Add(description); }
             }
             return string.Join(" ", appCompatFlags);
         }

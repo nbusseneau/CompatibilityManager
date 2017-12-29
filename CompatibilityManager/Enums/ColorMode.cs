@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace CompatibilityManager.Enums
 {
@@ -9,14 +10,20 @@ namespace CompatibilityManager.Enums
         [Description("BITCOLOR")] COLOR16BIT,
     }
 
-    public static class ColorModeExtensions
+    public static class ColorModeHelpers
     {
+        private static Dictionary<ColorMode, string> descriptions;
+        /// <summary>
+        /// ColorMode Description lookup table.
+        /// </summary>
+        public static Dictionary<ColorMode, string> Descriptions => descriptions ?? (descriptions = EnumHelpers.GetDescriptions<ColorMode>());
+
         /// <summary>
         /// Convert a ColorMode value to its AppCompatFlag REG_SZ representation.
         /// </summary>
         public static string ToRegistryString(this ColorMode enumValue)
         {
-            return enumValue.GetDescription();
+            return EnumHelpers.ToRegistryString(enumValue, ColorModeHelpers.Descriptions);
         }
     }
 }
