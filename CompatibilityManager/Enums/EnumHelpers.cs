@@ -23,7 +23,8 @@ namespace CompatibilityManager.Enums
         /// Get an Enum value's Description. If not specified, defaults to ToString(). If marked as non-browsable, defaults to string.Empty.
         /// </summary>
         /// <typeparam name="TEnum">Must be an Enum type.</typeparam>
-        public static string GetDescription<TEnum>(this TEnum enumValue) where TEnum : struct, IComparable, IFormattable, IConvertible
+        public static string GetDescription<TEnum>(this TEnum enumValue)
+            where TEnum : struct, IComparable, IFormattable, IConvertible
         {
             if (!typeof(TEnum).IsEnum) { throw new ArgumentException(string.Format("{0} must be an Enum type.", nameof(TEnum))); }
             var browsable = enumValue.GetAttributeOfType<BrowsableAttribute, TEnum>()?.Browsable ?? true;
@@ -35,7 +36,8 @@ namespace CompatibilityManager.Enums
         /// Get a dictionary of all Enum values associated to their Descriptions(as returned by GetDescription()) from an Enum type.
         /// </summary>
         /// <typeparam name="TEnum">Must be an Enum type.</typeparam>
-        public static Dictionary<TEnum, string> GetDescriptions<TEnum>() where TEnum : struct, IComparable, IFormattable, IConvertible
+        public static Dictionary<TEnum, string> GetDescriptions<TEnum>()
+            where TEnum : struct, IComparable, IFormattable, IConvertible
         {
             var descriptions = new Dictionary<TEnum, string>();
             foreach (var enumValue in Enum.GetValues(typeof(TEnum)).Cast<TEnum>())
@@ -49,6 +51,7 @@ namespace CompatibilityManager.Enums
         /// Convert a TEnum value to its AppCompatFlag REG_SZ representation based on a Description lookup table.
         /// </summary>
         public static string ToRegistryString<TEnum>(this TEnum enumValue, Dictionary<TEnum, string> descriptions)
+            where TEnum : struct, IComparable, IFormattable, IConvertible
         {
             return descriptions[enumValue];
         }
@@ -57,6 +60,7 @@ namespace CompatibilityManager.Enums
         /// Convert an AppCompatFlag REG_SZ to its TEnum representation based on a Description lookup table.
         /// </summary>
         public static TEnum FromRegistryString<TEnum>(string registryString, Dictionary<TEnum, string> descriptions)
+            where TEnum : struct, IComparable, IFormattable, IConvertible
         {
             var matches = descriptions.Where(kvp => registryString.Contains(kvp.Value));
             if (matches.Any()) { return matches.Last().Key; }
