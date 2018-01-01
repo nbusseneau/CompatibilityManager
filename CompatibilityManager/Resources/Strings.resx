@@ -195,24 +195,49 @@ Scaling performed by:</value>
 The application will recursively set flags on all executables found in this folder.
 If you pick something stupid like "C:"... well, you have been warned! :)</value>
   </data>
-  <data name="Apply" xml:space="preserve">
-    <value>Apply flags</value>
+  <data name="Save" xml:space="preserve">
+    <value>Save selected to registry</value>
   </data>
   <data name="CatastrophicFailureException" xml:space="preserve">
     <value>This should never happen: if it happened, either all hell broke loose, a Windows update broke my stuff (fuck you too, Bill!), or (most likely) I'm just a very bad programmer. Please report ASAP!</value>
   </data>
-  <data name="ClearFlagsWarning" xml:space="preserve">
-    <value>No compatibility flags selected. If you continue, this will clear all flags set on all items in the list, removing them from the registry entries.
+  <data name="SaveWarning" xml:space="preserve">
+    <value>This will save settings for each application to the registry.
+If no settings have been selected for an application, it will be removed from the registry entries.
 
 Confirm?</value>
   </data>
-  <data name="Reset" xml:space="preserve">
-    <value>Clear list</value>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Here be dragons!</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Reload selected from registry</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="UnselectAll" xml:space="preserve">
+    <value>Unselect all</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear (remove from registry on save)</value>
+  </data>
+  <data name="Elevate" xml:space="preserve">
+    <value>Show HKLM ("Change settings for all users")</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Compatibility Manager</value>
+  </data>
+  <data name="AggregatedSettings" xml:space="preserve">
+    <value>Multi-selection settings</value>
+  </data>
+  <data name="ApplicationSettings" xml:space="preserve">
+    <value>Application settings</value>
+  </data>
+  <data name="HKCU" xml:space="preserve">
+    <value>Current User</value>
   </data>
   <data name="HKLM" xml:space="preserve">
-    <value>Change settings for all users</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Here be dragons!</value>
+    <value>Local Machine</value>
   </data>
 </root>

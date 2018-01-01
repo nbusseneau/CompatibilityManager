@@ -99,11 +99,29 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply flags.
+        ///   Looks up a localized string similar to Multi-selection settings.
         /// </summary>
-        public static string Apply {
+        public static string AggregatedSettings {
             get {
-                return ResourceManager.GetString("Apply", resourceCulture);
+                return ResourceManager.GetString("AggregatedSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compatibility Manager.
+        /// </summary>
+        public static string ApplicationName {
+            get {
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application settings.
+        /// </summary>
+        public static string ApplicationSettings {
+            get {
+                return ResourceManager.GetString("ApplicationSettings", resourceCulture);
             }
         }
         
@@ -117,13 +135,11 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No compatibility flags selected. If you continue, this will clear all flags set on all items in the list, removing them from the registry entries.
-        ///
-        ///Confirm?.
+        ///   Looks up a localized string similar to Clear (remove from registry on save).
         /// </summary>
-        public static string ClearFlagsWarning {
+        public static string Clear {
             get {
-                return ResourceManager.GetString("ClearFlagsWarning", resourceCulture);
+                return ResourceManager.GetString("Clear", resourceCulture);
             }
         }
         
@@ -291,7 +307,25 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change settings for all users.
+        ///   Looks up a localized string similar to Show HKLM (&quot;Change settings for all users&quot;).
+        /// </summary>
+        public static string Elevate {
+            get {
+                return ResourceManager.GetString("Elevate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current User.
+        /// </summary>
+        public static string HKCU {
+            get {
+                return ResourceManager.GetString("HKCU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local Machine.
         /// </summary>
         public static string HKLM {
             get {
@@ -300,11 +334,11 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear list.
+        ///   Looks up a localized string similar to Reload selected from registry.
         /// </summary>
-        public static string Reset {
+        public static string Reload {
             get {
-                return ResourceManager.GetString("Reset", resourceCulture);
+                return ResourceManager.GetString("Reload", resourceCulture);
             }
         }
         
@@ -327,6 +361,36 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save selected to registry.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will save settings for each application to the registry.
+        ///If no settings have been selected for an application, it will be removed from the registry entries.
+        ///
+        ///Confirm?.
+        /// </summary>
+        public static string SaveWarning {
+            get {
+                return ResourceManager.GetString("SaveWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t detect OS version. {0}.
         /// </summary>
         public static string UnknownOSException {
@@ -336,11 +400,20 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unselect all.
+        /// </summary>
+        public static string UnselectAll {
+            get {
+                return ResourceManager.GetString("UnselectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Here be dragons!.
         /// </summary>
-        public static string Warning {
+        public static string WarningTitle {
             get {
-                return ResourceManager.GetString("Warning", resourceCulture);
+                return ResourceManager.GetString("WarningTitle", resourceCulture);
             }
         }
     }
