@@ -15,6 +15,10 @@ namespace CompatibilityManager.Services
 
     public static class OSVersionServices
     {
+        public static OSVersion? OSVersion { get; } = OSVersionServices.GetOSVersion();
+        public static bool IsWindows8OrAbove { get; } = OSVersion >= Services.OSVersion.Windows_8;
+        public static bool IsWindowsVistaOrAbove { get; } = OSVersion >= Services.OSVersion.Windows_Vista;
+
         private static OSVersion GetOSVersion()
         {
             var version = Environment.OSVersion.Version;
@@ -34,14 +38,6 @@ namespace CompatibilityManager.Services
             }
             
             throw new InvalidOperationException(string.Format(Resources.Strings.UnknownOSException, Resources.Strings.CatastrophicFailureException));
-        }
-
-        private static OSVersion? osVersion;
-        public static OSVersion? OSVersion => OSVersionServices.osVersion ?? (OSVersionServices.osVersion = OSVersionServices.GetOSVersion());
-
-        public static bool IsWindows8OrAbove()
-        {
-            return OSVersion >= Services.OSVersion.Windows_8;
         }
     }
 }
