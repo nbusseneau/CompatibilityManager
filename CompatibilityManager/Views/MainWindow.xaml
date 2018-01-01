@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CompatibilityManager.ViewModels"
+        xmlns:services="clr-namespace:CompatibilityManager.Services"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="CompatibilityManager"
@@ -11,29 +12,79 @@
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         ResizeMode="CanResizeWithGrip"
-        MinWidth="700"
-        MinHeight="215"
-        Title="CompatibilityManager">
+        MinWidth="700" MinHeight="285"
+        Title="{lex:Loc ApplicationName}"
+        DataContext="{x:Static vm:MainViewModel.Instance}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="CompatibilitySettingsTemplate.xaml" />
-                <ResourceDictionary Source="PathsTemplate.xaml" />
+                <ResourceDictionary Source="..\Styles\ButtonStyle.xaml" />
+                
+                <ResourceDictionary Source="ApplicationListTemplate.xaml" />
+                <ResourceDictionary Source="SettingsTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
-    <Window.DataContext>
-        <vm:MainViewModel />
-    </Window.DataContext>
-
-    <Grid>
+    <Grid Margin="3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="255" />
+            <ColumnDefinition>
+                <ColumnDefinition.Style>
+                    <Style TargetType="{x:Type ColumnDefinition}">
+                        <Setter Property="Width" Value="0" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Static services:PrivilegesServices.IsRunAsAdmin}}" Value="True">
+                                <Setter Property="Width" Value="*" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ColumnDefinition.Style>
+            </ColumnDefinition>
+            <ColumnDefinition Width="260" />
         </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <ContentPresenter Grid.Column="0" Content="{Binding PathsViewModel}" />
-        <ContentPresenter Grid.Column="1" Content="{Binding CompatibilitySettingsViewModel}" />
+        <ContentPresenter Grid.Row="0" Grid.Column="0"
+                          Margin="0,3,0,3"
+                          Content="{Binding HKCUApplications}" />
+
+        <ContentPresenter Grid.Row="0" Grid.Column="1"
+                          Margin="3,3,0,3"
+                          Content="{Binding HKLMApplications}" />
+
+        <ContentControl Grid.Row="0" Grid.Column="2"
+                        Margin="3,3,0,3"
+                        Content="{Binding DisplayedSettings}"
+                        IsEnabled="{Binding IsAnySelected}" />
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Margin="0,0,3,0"
+                    Tag="&#xE117;"
+                    Content="{lex:Loc Reload}"
+                    Command="{Binding ReloadCommand}" />
+
+            <Button Tag="&#xE105;"
+                    Content="{lex:Loc Save}"
+                    Command="{Binding SaveCommand}" />
+        </StackPanel>
+
+        <Button Grid.Row="1" Grid.Column="2"
+                Command="{Binding ElevateCommand}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding Source={x:Static services:PrivilegesServices.ShieldIcon}}" Width="15" Margin="0,0,1,0"/>
+                <TextBlock Text="{lex:Loc Elevate}" />
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>
