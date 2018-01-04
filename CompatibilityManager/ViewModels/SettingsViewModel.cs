@@ -79,21 +79,33 @@ namespace CompatibilityManager.ViewModels
         public bool? CompatibilityModeChecked
         {
             get => this.compatibilityModeChecked;
-            set => SetProperty(ref this.compatibilityModeChecked, value, this.OnSettingsChanged);
+            set
+            {
+                SetProperty(ref this.compatibilityModeChecked, value);
+                SetEnumProperty(ref this.compatibilityMode, Properties.Settings.Default.LastCompatibilityMode, value, this.OnSettingsChanged, nameof(this.CompatibilityMode));
+            }
         }
 
         protected bool? colorModeChecked = false;
         public bool? ColorModeChecked
         {
             get => this.colorModeChecked;
-            set => SetProperty(ref this.colorModeChecked, value, this.OnSettingsChanged);
+            set
+            {
+                SetProperty(ref this.colorModeChecked, value);
+                SetEnumProperty(ref this.colorMode, Properties.Settings.Default.LastColorMode, value, this.OnSettingsChanged, nameof(this.ColorMode));
+            }
         }
 
         protected bool? dpiScalingChecked = false;
         public bool? DPIScalingChecked
         {
             get => this.dpiScalingChecked;
-            set => SetProperty(ref this.dpiScalingChecked, value, this.OnSettingsChanged);
+            set
+            {
+                SetProperty(ref this.dpiScalingChecked, value);
+                SetEnumProperty(ref this.dpiScaling, Properties.Settings.Default.LastDPIScaling, value, this.OnSettingsChanged, nameof(this.DPIScaling));
+            }
         }
 
         protected bool? resolution640x480Checked = false;
@@ -113,7 +125,7 @@ namespace CompatibilityManager.ViewModels
             get => this.disableFullscreenOptimizationsChecked;
             set
             {
-                SetProperty(ref this.disableFullscreenOptimizationsChecked, value, this.OnSettingsChanged);
+                SetProperty(ref this.disableFullscreenOptimizationsChecked, value);
                 SetFlagProperty(ref this.otherFlags, OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE, value, this.OnSettingsChanged, nameof(this.OtherFlags));
             }
         }
@@ -124,7 +136,7 @@ namespace CompatibilityManager.ViewModels
             get => this.runAsAdministratorChecked;
             set
             {
-                SetProperty(ref this.runAsAdministratorChecked, value, this.OnSettingsChanged);
+                SetProperty(ref this.runAsAdministratorChecked, value);
                 SetFlagProperty(ref this.otherFlags, OtherFlags.RUNASADMIN, value, this.OnSettingsChanged, nameof(this.OtherFlags));
             }
         }
@@ -215,7 +227,22 @@ namespace CompatibilityManager.ViewModels
         #region SetProperty overrides
 
         /// <summary>
-        /// Flip a specific flag according to value on storage, then trigger regular SetProperty.
+        /// Set an enum storage to newValue according to bool value, then trigger regular SetProperty.
+        /// </summary>
+        protected bool SetEnumProperty<TEnum>(ref TEnum storage, TEnum newValue, bool? value, Action onChanged, string propertyName)
+             where TEnum : struct, IComparable, IFormattable, IConvertible
+        {
+            EnumServices.TEnumTypeCheck<TEnum>();
+
+            // Initialize with newValue if checked and enum value is None
+            if ((value ?? false) && storage.Equals(Activator.CreateInstance<TEnum>())) { return SetProperty(ref storage, newValue, onChanged, propertyName); }
+
+            // Do nothing if unchecked
+            return false;
+        }
+
+        /// <summary>
+        /// Flip a specific flag storage according to bool value, then trigger regular SetProperty.
         /// </summary>
         protected bool SetFlagProperty(ref OtherFlags storage, OtherFlags flag, bool? value, Action onChanged, string propertyName)
         {
