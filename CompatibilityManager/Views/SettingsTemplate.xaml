@@ -5,7 +5,6 @@
                     xmlns:vm="clr-namespace:CompatibilityManager.ViewModels"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com">
     <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
