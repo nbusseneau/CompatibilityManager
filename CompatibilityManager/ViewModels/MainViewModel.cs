@@ -67,7 +67,7 @@ namespace CompatibilityManager.ViewModels
         private MainViewModel()
         {
             this.HKCUApplications = new ApplicationListViewModel(Resources.Strings.HKCU, RegistryServices.HKCUKey);
-            this.HKLMApplications = PrivilegesServices.IsRunAsAdmin ? new ApplicationListViewModel(Resources.Strings.HKLM, RegistryServices.HKLMKey) : null;
+            this.HKLMApplications = RegistryServices.HKLMKey != null ? new ApplicationListViewModel(Resources.Strings.HKLM, RegistryServices.HKLMKey) : null;
 
             this.ReloadCommand = new DelegateCommand(this.Reload, this.CanReload);
             this.SaveCommand = new DelegateCommand(this.Save, this.CanSave);

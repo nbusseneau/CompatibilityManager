@@ -1,6 +1,7 @@
 ﻿using CompatibilityManager.Enums;
 using CompatibilityManager.ViewModels;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,12 +20,15 @@ namespace CompatibilityManager.Services
 
         private static RegistryKey GetRegistryKey(bool hklm = false)
         {
-            if (hklm)
+            try
             {
-                if (PrivilegesServices.IsRunAsAdmin) { return Registry.LocalMachine.OpenSubKey(AppCompatFlagsRegistryKey, true); }
-                else { return null; }
+                if (hklm) { return Registry.LocalMachine.CreateSubKey(AppCompatFlagsRegistryKey); }
+                else { return Registry.CurrentUser.CreateSubKey(AppCompatFlagsRegistryKey); }
             }
-            else { return Registry.CurrentUser.OpenSubKey(AppCompatFlagsRegistryKey, true); }
+            catch (UnauthorizedAccessException)
+            {
+                return null;
+            }
         }
 
         /// <summary>
