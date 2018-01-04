@@ -30,7 +30,7 @@
                               IsChecked="{Binding CompatibilityModeChecked}" />
                     <lex:EnumComboBox IsEnabled="{Binding CompatibilityModeChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
                                       Type="{x:Type enum:CompatibilityMode}" PrependType="True"
-                                      SelectedItem="{Binding CompatibilityMode, UpdateSourceTrigger=PropertyChanged}" />
+                                      SelectedItem="{Binding CompatibilityMode}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
@@ -38,7 +38,7 @@
                               IsChecked="{Binding ColorModeChecked}" />
                     <lex:EnumComboBox IsEnabled="{Binding ColorModeChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
                                       Type="{x:Type enum:ColorMode}" PrependType="True"
-                                      SelectedItem="{Binding ColorMode, UpdateSourceTrigger=PropertyChanged}" />
+                                      SelectedItem="{Binding ColorMode}" />
                 </StackPanel>
 
                 <CheckBox Grid.Row="2" Content="{lex:Loc Resolution640x480}"
@@ -49,7 +49,7 @@
                               IsChecked="{Binding DPIScalingChecked}" />
                     <lex:EnumComboBox IsEnabled="{Binding DPIScalingChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
                                       Type="{x:Type enum:DPIScaling}" PrependType="True"
-                                      SelectedItem="{Binding DPIScaling, UpdateSourceTrigger=PropertyChanged}" />
+                                      SelectedItem="{Binding DPIScaling}" />
                 </StackPanel>
 
                 <CheckBox Grid.Row="4" Content="{lex:Loc DisableFullscreenOptimizations}"
