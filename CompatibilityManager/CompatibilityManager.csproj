@@ -13,8 +13,8 @@
     <Product>Compatibility Manager</Product>
     <Copyright>© 2017 Skymirrh</Copyright>
     <AssemblyVersion>0.3</AssemblyVersion>
-    <AssemblyFileVersion>0.3.0</AssemblyFileVersion>
-    <AssemblyInformationalVersion>0.3.0-alpha</AssemblyInformationalVersion>
+    <AssemblyFileVersion>0.3.1</AssemblyFileVersion>
+    <AssemblyInformationalVersion>0.3.1-alpha</AssemblyInformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
