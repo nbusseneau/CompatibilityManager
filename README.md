@@ -7,7 +7,7 @@ A Windows app for bulk editing compatibility settings. It allows you to quickly 
 ## Installation
 
 1. [Download the latest release.](https://github.com/Skymirrh/CompatibilityManager/releases/latest)
-1. Unpack it.
+1. Extract it (you'll need [7-Zip](http://www.7-zip.org/)).
 1. Run `CompatibilityManager.exe`.
 1. ???
 1. Profit.
