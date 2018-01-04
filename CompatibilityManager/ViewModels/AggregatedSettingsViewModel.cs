@@ -84,12 +84,15 @@ namespace CompatibilityManager.ViewModels
 
         #region SetProperty overrides
 
+        /// <summary>
+        /// Set property to value on children settings.
+        /// </summary>
         private void SetChildrenProperty<T>(string propertyName, T value)
         {
             var propertyInfo = typeof(SettingsViewModel).GetProperty(propertyName);
             foreach (var setting in this.settings) { propertyInfo.SetValue(setting, value); }
         }
-
+        
         protected override bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             SetChildrenProperty(propertyName, value);

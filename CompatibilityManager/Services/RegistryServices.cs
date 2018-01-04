@@ -27,6 +27,9 @@ namespace CompatibilityManager.Services
             else { return Registry.CurrentUser.OpenSubKey(AppCompatFlagsRegistryKey, true); }
         }
 
+        /// <summary>
+        /// Load applications and their associated settings from chosen registry key.
+        /// </summary>
         public static IEnumerable<ApplicationViewModel> GetApplications(RegistryKey registryKey)
         {
             var applications = new List<ApplicationViewModel>();
@@ -37,6 +40,9 @@ namespace CompatibilityManager.Services
             return applications;
         }
 
+        /// <summary>
+        /// Load an application (by path) and its associated settings from chosen registry key.
+        /// </summary>
         public static SettingsViewModel GetApplicationSettings(RegistryKey key, string path)
         {
             var registryString = (string)key.GetValue(path);
@@ -44,6 +50,9 @@ namespace CompatibilityManager.Services
             return new SettingsViewModel();
         }
 
+        /// <summary>
+        /// Convert enums to their AppCompatFlag REG_SZ representation.
+        /// </summary>
         public static string ToRegistryString(CompatibilityMode compatibilityMode, ColorMode colorMode, DPIScaling dpiScaling, OtherFlags otherFlags)
         {
             var settings = new List<string>()

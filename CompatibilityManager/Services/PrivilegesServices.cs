@@ -13,6 +13,9 @@ namespace CompatibilityManager.Services
         public static BitmapSource ShieldIcon { get; } = StockIconServices.GetShieldBitmapSource();
         public static bool IsRunAsAdmin { get; } = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 
+        /// <summary>
+        /// Prompt user for elevated privileges (UAC) and restart application if granted.
+        /// </summary>
         public static void Elevate()
         {
             var adminProcess = new ProcessStartInfo

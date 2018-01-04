@@ -137,6 +137,9 @@ namespace CompatibilityManager.Services
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool DestroyIcon(IntPtr hIcon);
 
+        /// <summary>
+        /// Load UAC Shield bitmap from Shell32.dll.
+        /// </summary>
         public static BitmapSource GetShieldBitmapSource()
         {
             BitmapSource shieldSource = null;

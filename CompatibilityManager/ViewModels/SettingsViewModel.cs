@@ -192,6 +192,9 @@ namespace CompatibilityManager.ViewModels
 
         #region SetProperty overrides
 
+        /// <summary>
+        /// Flip a specific flag according to value on storage, then trigger regular SetProperty.
+        /// </summary>
         protected bool SetFlagProperty(ref OtherFlags storage, OtherFlags flag, bool? value, Action onChanged, string propertyName)
         {
             OtherFlags newValue;

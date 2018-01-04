@@ -7,6 +7,7 @@ namespace System.Collections.ObjectModel
 {
     /// <summary>
     /// Represents a dynamic data collection that provides notifications when items get added, removed, or when the whole list is refreshed.
+    /// This version simply adds AddRange support.
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     public class ObservableRangeCollection<T> : ObservableCollection<T>
