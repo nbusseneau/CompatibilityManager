@@ -14,9 +14,9 @@ A Windows app for bulk editing compatibility settings. It allows you to quickly 
 
 Because in Windows 10 Fall Creators Update (1709), there is no possibility to globally "disable fullscreen optimizations"™.
 
-There used to be one in [Anniversary Update (1607)](https://www.reddit.com/r/Windows10/comments/645ukf/windows_10_cu_fullscreen_optimizations/dhounib/?context=100).
-Which was still working in [Creators Update (1703)](https://www.reddit.com/r/Windows10/comments/645ukf/windows_10_cu_fullscreen_optimizations/dmyx1y9/?context=100).
-But now [it ain't working no more](https://www.reddit.com/r/Windows10/comments/78r88x/can_i_disable_full_screen_optimizations_globally/dp95fpy/?context=100).
+There used to be one in [Anniversary Update (1607)](https://www.reddit.com/r/Windows10/comments/645ukf/windows_10_cu_fullscreen_optimizations/dhounib/?context=100),
+which was still working in [Creators Update (1703)](https://www.reddit.com/r/Windows10/comments/645ukf/windows_10_cu_fullscreen_optimizations/dmyx1y9/?context=100),
+but now [it ain't working no more](https://www.reddit.com/r/Windows10/comments/78r88x/can_i_disable_full_screen_optimizations_globally/dp95fpy/?context=100).
 
 ## But aren't "fullscreen optimizations"™ good?
 
