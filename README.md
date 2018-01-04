@@ -1,3 +1,5 @@
+![Application screenshot](Screenshot.png)
+
 # Compatibility Manager
 
 A Windows app for bulk editing compatibility settings. It allows you to quickly enable/disable compatibility settings for multiple applications at once, instead of having to go through them one by one.
