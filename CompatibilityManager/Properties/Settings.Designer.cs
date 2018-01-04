@@ -13,7 +13,7 @@ namespace CompatibilityManager.Properties
 
 
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
     {
 
@@ -24,6 +24,51 @@ namespace CompatibilityManager.Properties
             get
             {
                 return defaultInstance;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("WIN95")]
+        public global::CompatibilityManager.Enums.CompatibilityMode LastCompatibilityMode
+        {
+            get
+            {
+                return ((global::CompatibilityManager.Enums.CompatibilityMode)(this["LastCompatibilityMode"]));
+            }
+            set
+            {
+                this["LastCompatibilityMode"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COLOR256")]
+        public global::CompatibilityManager.Enums.ColorMode LastColorMode
+        {
+            get
+            {
+                return ((global::CompatibilityManager.Enums.ColorMode)(this["LastColorMode"]));
+            }
+            set
+            {
+                this["LastColorMode"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HIGHDPIAWARE")]
+        public global::CompatibilityManager.Enums.DPIScaling LastDPIScaling
+        {
+            get
+            {
+                return ((global::CompatibilityManager.Enums.DPIScaling)(this["LastDPIScaling"]));
+            }
+            set
+            {
+                this["LastDPIScaling"] = value;
             }
         }
     }

@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CompatibilityManager.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LastCompatibilityMode" Type="CompatibilityManager.Enums.CompatibilityMode" Scope="User">
+      <Value Profile="(Default)">WIN95</Value>
+    </Setting>
+    <Setting Name="LastColorMode" Type="CompatibilityManager.Enums.ColorMode" Scope="User">
+      <Value Profile="(Default)">COLOR256</Value>
+    </Setting>
+    <Setting Name="LastDPIScaling" Type="CompatibilityManager.Enums.DPIScaling" Scope="User">
+      <Value Profile="(Default)">HIGHDPIAWARE</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
