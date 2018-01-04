@@ -81,8 +81,8 @@ namespace CompatibilityManager.ViewModels
             get => this.compatibilityModeChecked;
             set
             {
-                SetProperty(ref this.compatibilityModeChecked, value);
-                SetEnumProperty(ref this.compatibilityMode, Properties.Settings.Default.LastCompatibilityMode, value, this.OnSettingsChanged, nameof(this.CompatibilityMode));
+                SetEnumProperty(ref this.compatibilityMode, Properties.Settings.Default.LastCompatibilityMode, value, nameof(this.CompatibilityMode));
+                SetProperty(ref this.compatibilityModeChecked, value, this.OnSettingsChanged);
             }
         }
 
@@ -92,8 +92,8 @@ namespace CompatibilityManager.ViewModels
             get => this.colorModeChecked;
             set
             {
-                SetProperty(ref this.colorModeChecked, value);
-                SetEnumProperty(ref this.colorMode, Properties.Settings.Default.LastColorMode, value, this.OnSettingsChanged, nameof(this.ColorMode));
+                SetEnumProperty(ref this.colorMode, Properties.Settings.Default.LastColorMode, value, nameof(this.ColorMode));
+                SetProperty(ref this.colorModeChecked, value, this.OnSettingsChanged);
             }
         }
 
@@ -103,8 +103,8 @@ namespace CompatibilityManager.ViewModels
             get => this.dpiScalingChecked;
             set
             {
-                SetProperty(ref this.dpiScalingChecked, value);
-                SetEnumProperty(ref this.dpiScaling, Properties.Settings.Default.LastDPIScaling, value, this.OnSettingsChanged, nameof(this.DPIScaling));
+                SetEnumProperty(ref this.dpiScaling, Properties.Settings.Default.LastDPIScaling, value, nameof(this.DPIScaling));
+                SetProperty(ref this.dpiScalingChecked, value, this.OnSettingsChanged);
             }
         }
 
@@ -114,8 +114,8 @@ namespace CompatibilityManager.ViewModels
             get => this.resolution640x480Checked;
             set
             {
-                SetProperty(ref this.resolution640x480Checked, value);
-                SetFlagProperty(ref this.otherFlags, OtherFlags.RESOLUTION640X480, value, this.OnSettingsChanged, nameof(this.OtherFlags));
+                SetFlagProperty(ref this.otherFlags, OtherFlags.RESOLUTION640X480, value, nameof(this.OtherFlags));
+                SetProperty(ref this.resolution640x480Checked, value, this.OnSettingsChanged);
             }
         }
 
@@ -125,8 +125,8 @@ namespace CompatibilityManager.ViewModels
             get => this.disableFullscreenOptimizationsChecked;
             set
             {
-                SetProperty(ref this.disableFullscreenOptimizationsChecked, value);
-                SetFlagProperty(ref this.otherFlags, OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE, value, this.OnSettingsChanged, nameof(this.OtherFlags));
+                SetFlagProperty(ref this.otherFlags, OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE, value, nameof(this.OtherFlags));
+                SetProperty(ref this.disableFullscreenOptimizationsChecked, value, this.OnSettingsChanged);
             }
         }
 
@@ -136,8 +136,8 @@ namespace CompatibilityManager.ViewModels
             get => this.runAsAdministratorChecked;
             set
             {
-                SetProperty(ref this.runAsAdministratorChecked, value);
-                SetFlagProperty(ref this.otherFlags, OtherFlags.RUNASADMIN, value, this.OnSettingsChanged, nameof(this.OtherFlags));
+                SetFlagProperty(ref this.otherFlags, OtherFlags.RUNASADMIN, value, nameof(this.OtherFlags));
+                SetProperty(ref this.runAsAdministratorChecked, value, this.OnSettingsChanged);
             }
         }
 
@@ -253,13 +253,13 @@ namespace CompatibilityManager.ViewModels
         /// <summary>
         /// Set an enum storage to newValue according to bool value, then trigger regular SetProperty.
         /// </summary>
-        protected bool SetEnumProperty<TEnum>(ref TEnum storage, TEnum newValue, bool? value, Action onChanged, string propertyName)
+        protected bool SetEnumProperty<TEnum>(ref TEnum storage, TEnum newValue, bool? value, string propertyName)
              where TEnum : struct, IComparable, IFormattable, IConvertible
         {
             EnumServices.TEnumTypeCheck<TEnum>();
 
             // Initialize with newValue if checked and enum value is None
-            if ((value ?? false) && storage.Equals(Activator.CreateInstance<TEnum>())) { return SetProperty(ref storage, newValue, onChanged, propertyName); }
+            if ((value ?? false) && storage.Equals(Activator.CreateInstance<TEnum>())) { return SetProperty(ref storage, newValue, propertyName); }
 
             // Do nothing if unchecked
             return false;
@@ -268,13 +268,13 @@ namespace CompatibilityManager.ViewModels
         /// <summary>
         /// Flip a specific flag storage according to bool value, then trigger regular SetProperty.
         /// </summary>
-        protected bool SetFlagProperty(ref OtherFlags storage, OtherFlags flag, bool? value, Action onChanged, string propertyName)
+        protected bool SetFlagProperty(ref OtherFlags storage, OtherFlags flag, bool? value, string propertyName)
         {
             OtherFlags newValue;
             if (value ?? false) { newValue = storage | flag; }
             else { newValue = storage & ~flag; }
 
-            return SetProperty(ref storage, newValue, onChanged, propertyName);
+            return SetProperty(ref storage, newValue, propertyName);
         }
 
         #endregion
