@@ -136,8 +136,6 @@ namespace CompatibilityManager.ViewModels
 
         public SettingsViewModel(string registryString) : this()
         {
-            this.suppressSettingsChanged = true;
-
             // Initialize compatibility settings
             this.compatibilityMode = CompatibilityModeServices.FromRegistryString(registryString);
             this.colorMode = ColorModeServices.FromRegistryString(registryString);
@@ -151,22 +149,16 @@ namespace CompatibilityManager.ViewModels
             this.resolution640x480Checked = this.OtherFlags.HasFlag(OtherFlags.RESOLUTION640X480);
             this.disableFullscreenOptimizationsChecked = this.OtherFlags.HasFlag(OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE);
             this.runAsAdministratorChecked = this.OtherFlags.HasFlag(OtherFlags.RUNASADMIN);
-
-            this.suppressSettingsChanged = false;
         }
 
         #endregion
 
         #region Helper methods
 
-        protected bool suppressSettingsChanged;
-        public void OnSettingsChanged()
         {
-            if (!this.suppressSettingsChanged)
-            {
-                this.HasChanged = true;
-                RaisePropertyChanged(nameof(this.IsCleared));
-            }
+        protected void OnSettingsChanged()
+            this.HasChanged = true;
+            RaisePropertyChanged(nameof(this.IsCleared));
         }
 
         public string ToRegistryString()

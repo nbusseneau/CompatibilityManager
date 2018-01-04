@@ -24,8 +24,6 @@ namespace CompatibilityManager.ViewModels
 
         public AggregatedSettingsViewModel(IEnumerable<SettingsViewModel> settings) : base()
         {
-            this.suppressSettingsChanged = true;
-
             // Initialize settings collection
             this.settings = settings;
             if (!settings.Any()) { return; } // Stop immediately if collection is empty
@@ -54,8 +52,6 @@ namespace CompatibilityManager.ViewModels
 
             this.runAsAdministratorChecked = this.Aggregate(settings.Select(s => s.RunAsAdministratorChecked));
             if ((this.runAsAdministratorChecked ?? false) && !this.otherFlags.HasFlag(OtherFlags.RUNASADMIN)) { this.runAsAdministratorChecked = null; }
-
-            this.suppressSettingsChanged = false;
         }
 
         #endregion
