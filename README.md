@@ -38,3 +38,4 @@ Because it does a bit more than that. Please don't assume Compatibility Manager'
 
 The app mirrors exactly what you'd find in the Compatibility tab of an application's properties.
 A good place to start would be the [official Windows documentation](https://support.microsoft.com/en-us/help/15078/windows-make-older-programs-compatible).
+As for fullscreen optimizations, you can find more info about their purpose [here](https://www.reddit.com/r/Windows10/comments/645ukf/windows_10_cu_fullscreen_optimizations/), though it should be noted that, as seen in the links above, their behavior probably have changed along with Windows Updates.
