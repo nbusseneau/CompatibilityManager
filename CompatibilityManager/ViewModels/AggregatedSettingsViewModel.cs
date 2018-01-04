@@ -22,7 +22,7 @@ namespace CompatibilityManager.ViewModels
 
         #region Constructors
 
-        public AggregatedSettingsViewModel(IEnumerable<SettingsViewModel> settings)
+        public AggregatedSettingsViewModel(IEnumerable<SettingsViewModel> settings) : base()
         {
             this.suppressSettingsChanged = true;
 
