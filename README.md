@@ -33,7 +33,9 @@ So, I'd just like to be able to disable them once and for all, Microsoft please 
 #### Why not just use borderless/windowed mode instead?
 
 I care about optimal performance, and am a smoothness freak.
+
 Theoretically, games should run smoother in fullscreen than in borderless/windowed mode because the GPU has exclusive control, instead of having to deal with Windows' DWM (Desktop Window Manager) to draw applications in the screen space.
+
 Unless, of course, when Windows tries to interfere... ¯\\\_(ツ)_/¯
 
 #### Why isn't it called "Fullscreen Optimizations"™ Manager then?
@@ -43,5 +45,6 @@ Because it does a bit more than that. Please don't assume Compatibility Manager'
 ## What are all these compatibility settings for anyway?
 
 The app mirrors exactly what you'd find in the Compatibility tab of an application's properties.
+
 A good place to start would be the [official Windows documentation](https://support.microsoft.com/en-us/help/15078/windows-make-older-programs-compatible).
 As for fullscreen optimizations, you can find more info about their purpose [here](https://www.reddit.com/r/Windows10/comments/645ukf/windows_10_cu_fullscreen_optimizations/), though it should be noted that, as seen in the links above, their behavior probably have changed along with Windows Updates.
