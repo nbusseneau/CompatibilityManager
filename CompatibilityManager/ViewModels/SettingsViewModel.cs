@@ -123,7 +123,7 @@ namespace CompatibilityManager.ViewModels
 
         #region Commands
 
-        public DelegateCommand ClearCommand { get; private set; }
+        public DelegateCommand ClearCommand { get; protected set; }
 
         #endregion
 
@@ -159,7 +159,7 @@ namespace CompatibilityManager.ViewModels
 
         #region Helper methods
 
-        private bool suppressSettingsChanged;
+        protected bool suppressSettingsChanged;
         public void OnSettingsChanged()
         {
             if (!this.suppressSettingsChanged)
@@ -178,7 +178,7 @@ namespace CompatibilityManager.ViewModels
 
         #region Command executes
 
-        private void Clear()
+        protected void Clear()
         {
             this.CompatibilityModeChecked = false;
             this.ColorModeChecked = false;
@@ -192,7 +192,7 @@ namespace CompatibilityManager.ViewModels
 
         #region SetProperty overrides
 
-        private bool SetFlagProperty(ref OtherFlags storage, OtherFlags flag, bool? value, Action onChanged, string propertyName)
+        protected bool SetFlagProperty(ref OtherFlags storage, OtherFlags flag, bool? value, Action onChanged, string propertyName)
         {
             OtherFlags newValue;
             if (value ?? false) { newValue = storage | flag; }
