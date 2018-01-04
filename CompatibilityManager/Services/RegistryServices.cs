@@ -41,13 +41,11 @@ namespace CompatibilityManager.Services
         }
 
         /// <summary>
-        /// Load an application (by path) and its associated settings from chosen registry key.
+        /// Load a path (application) and its associated registry string (settings) from chosen registry key.
         /// </summary>
-        public static SettingsViewModel GetApplicationSettings(RegistryKey key, string path)
+        public static string GetApplicationRegistryString(RegistryKey key, string path)
         {
-            var registryString = (string)key.GetValue(path);
-            if (!string.IsNullOrWhiteSpace(registryString)) { return new SettingsViewModel(registryString); }
-            return new SettingsViewModel();
+            return (string)key.GetValue(path);
         }
 
         /// <summary>

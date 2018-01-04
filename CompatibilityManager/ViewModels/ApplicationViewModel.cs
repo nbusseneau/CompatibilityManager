@@ -47,8 +47,8 @@ namespace CompatibilityManager.ViewModels
             this.Path = path;
             this.RegistryKey = registryKey ?? RegistryServices.HKCUKey;
             this.IsSelected = isSelected;
-
-            this.ReloadSettings();
+            
+            this.Settings = new SettingsViewModel(RegistryServices.GetApplicationRegistryString(this.RegistryKey, this.Path));
         }
 
         #endregion
@@ -57,7 +57,7 @@ namespace CompatibilityManager.ViewModels
 
         public void ReloadSettings()
         {
-            this.Settings = RegistryServices.GetApplicationSettings(this.RegistryKey, this.Path);
+            this.Settings.ReloadFromRegistryString(RegistryServices.GetApplicationRegistryString(this.RegistryKey, this.Path));
         }
 
         #endregion

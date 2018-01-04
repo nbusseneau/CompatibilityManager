@@ -160,6 +160,8 @@ namespace CompatibilityManager.ViewModels
 
         public SettingsViewModel(string registryString) : this()
         {
+            if (string.IsNullOrWhiteSpace(registryString)) { return; } // Safeguard
+
             // Initialize compatibility settings
             this.compatibilityMode = CompatibilityModeServices.FromRegistryString(registryString);
             this.colorMode = ColorModeServices.FromRegistryString(registryString);
@@ -170,9 +172,9 @@ namespace CompatibilityManager.ViewModels
             this.compatibilityModeChecked = this.compatibilityMode != CompatibilityMode.None;
             this.colorModeChecked = this.colorMode != ColorMode.None;
             this.dpiScalingChecked = this.dpiScaling != DPIScaling.None;
-            this.resolution640x480Checked = this.OtherFlags.HasFlag(OtherFlags.RESOLUTION640X480);
-            this.disableFullscreenOptimizationsChecked = this.OtherFlags.HasFlag(OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE);
-            this.runAsAdministratorChecked = this.OtherFlags.HasFlag(OtherFlags.RUNASADMIN);
+            this.resolution640x480Checked = this.otherFlags.HasFlag(OtherFlags.RESOLUTION640X480);
+            this.disableFullscreenOptimizationsChecked = this.otherFlags.HasFlag(OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE);
+            this.runAsAdministratorChecked = this.otherFlags.HasFlag(OtherFlags.RUNASADMIN);
         }
 
         #endregion
@@ -201,6 +203,25 @@ namespace CompatibilityManager.ViewModels
         {
             this.HasChanged = true;
             RaisePropertyChanged(nameof(this.IsCleared));
+        }
+
+        public void ReloadFromRegistryString(string registryString)
+        {
+            var settings = new SettingsViewModel(registryString);
+
+            // Reload compatibility settings
+            this.CompatibilityMode = settings.CompatibilityMode != CompatibilityMode.None ? settings.CompatibilityMode : this.CompatibilityMode;
+            this.ColorMode = settings.ColorMode != ColorMode.None ? settings.ColorMode : this.ColorMode;
+            this.DPIScaling = settings.DPIScaling != DPIScaling.None ? settings.DPIScaling : this.DPIScaling;
+            this.OtherFlags = settings.OtherFlags;
+
+            // Reload checkboxes
+            this.CompatibilityModeChecked = settings.CompatibilityModeChecked;
+            this.ColorModeChecked = settings.ColorModeChecked;
+            this.DPIScalingChecked = settings.DPIScalingChecked;
+            this.Resolution640x480Checked = settings.Resolution640x480Checked;
+            this.DisableFullscreenOptimizationsChecked = settings.DisableFullscreenOptimizationsChecked;
+            this.RunAsAdministratorChecked = settings.RunAsAdministratorChecked;
         }
 
         public string ToRegistryString()
