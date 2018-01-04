@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -24,6 +25,9 @@ namespace CompatibilityManager
         public MainWindow()
         {
             InitializeComponent();
+
+            // Fix d3d9.dll fault crash due to RivaTuner Statistic Server trying to inject itself into WPF apps 
+            RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
         }
     }
 }
