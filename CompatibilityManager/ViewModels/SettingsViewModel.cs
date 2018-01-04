@@ -139,18 +139,18 @@ namespace CompatibilityManager.ViewModels
             this.suppressSettingsChanged = true;
 
             // Initialize compatibility settings
-            this.CompatibilityMode = CompatibilityModeServices.FromRegistryString(registryString);
-            this.ColorMode = ColorModeServices.FromRegistryString(registryString);
-            this.DPIScaling = DPIScalingServices.FromRegistryString(registryString);
-            this.OtherFlags = OtherFlagsServices.FromRegistryString(registryString);
+            this.compatibilityMode = CompatibilityModeServices.FromRegistryString(registryString);
+            this.colorMode = ColorModeServices.FromRegistryString(registryString);
+            this.dpiScaling = DPIScalingServices.FromRegistryString(registryString);
+            this.otherFlags = OtherFlagsServices.FromRegistryString(registryString);
 
             // Initialize checkboxes
-            this.CompatibilityModeChecked = this.compatibilityMode != CompatibilityMode.None;
-            this.ColorModeChecked = this.colorMode != ColorMode.None;
-            this.DPIScalingChecked = this.dpiScaling != DPIScaling.None;
-            this.Resolution640x480Checked = this.OtherFlags.HasFlag(OtherFlags.RESOLUTION640X480);
-            this.DisableFullscreenOptimizationsChecked = this.OtherFlags.HasFlag(OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE);
-            this.RunAsAdministratorChecked = this.OtherFlags.HasFlag(OtherFlags.RUNASADMIN);
+            this.compatibilityModeChecked = this.compatibilityMode != CompatibilityMode.None;
+            this.colorModeChecked = this.colorMode != ColorMode.None;
+            this.dpiScalingChecked = this.dpiScaling != DPIScaling.None;
+            this.resolution640x480Checked = this.OtherFlags.HasFlag(OtherFlags.RESOLUTION640X480);
+            this.disableFullscreenOptimizationsChecked = this.OtherFlags.HasFlag(OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE);
+            this.runAsAdministratorChecked = this.OtherFlags.HasFlag(OtherFlags.RUNASADMIN);
 
             this.suppressSettingsChanged = false;
         }
