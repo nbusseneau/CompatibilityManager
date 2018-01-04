@@ -222,6 +222,9 @@ namespace CompatibilityManager.ViewModels
             this.Resolution640x480Checked = settings.Resolution640x480Checked;
             this.DisableFullscreenOptimizationsChecked = settings.DisableFullscreenOptimizationsChecked;
             this.RunAsAdministratorChecked = settings.RunAsAdministratorChecked;
+
+            // Reset HasChanged flag
+            this.HasChanged = false;
         }
 
         public string ToRegistryString()
