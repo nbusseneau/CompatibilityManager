@@ -30,6 +30,12 @@ In my case, they don't seem to work as intended, and introduce stuttering. I hav
 
 So, I'd just like to be able to disable them once and for all, Microsoft please pretty please :((
 
+#### Why not just use borderless/windowed mode instead?
+
+I care about optimal performance, and am a smoothness freak.
+Theoretically, games should run smoother in fullscreen than in borderless/windowed mode because the GPU has exclusive control, instead of having to deal with Windows' DWM (Desktop Window Manager) to draw applications in the screen space.
+Unless, of course, when Windows tries to interfere... ¯\\\_(ツ)_/¯
+
 #### Why isn't it called "Fullscreen Optimizations"™ Manager then?
 
 Because it does a bit more than that. Please don't assume Compatibility Manager's intended behaviour, that triggers me.
