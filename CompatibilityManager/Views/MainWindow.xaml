@@ -10,9 +10,9 @@
         lex:ResxLocalizationProvider.DefaultAssembly="CompatibilityManager"
         lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
-        SizeToContent="WidthAndHeight"
+        MinWidth="700" MinHeight="300"
+        SizeToContent="Width" Height="500"
         ResizeMode="CanResizeWithGrip"
-        MinWidth="700" MinHeight="285"
         Title="{lex:Loc ApplicationName}"
         DataContext="{x:Static vm:MainViewModel.Instance}">
     <Window.Resources>
