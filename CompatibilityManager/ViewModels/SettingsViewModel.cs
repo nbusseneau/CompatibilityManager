@@ -35,21 +35,33 @@ namespace CompatibilityManager.ViewModels
         public CompatibilityMode CompatibilityMode
         {
             get => (this.CompatibilityModeChecked ?? false) ? this.compatibilityMode : CompatibilityMode.None;
-            set => SetProperty(ref this.compatibilityMode, value, this.OnSettingsChanged);
+            set
+            {
+                SetProperty(ref this.compatibilityMode, value, this.OnSettingsChanged);
+                SaveSettings(this.compatibilityMode);
+            }
         }
 
         protected ColorMode colorMode;
         public ColorMode ColorMode
         {
             get => (this.ColorModeChecked ?? false) ? this.colorMode : ColorMode.None;
-            set => SetProperty(ref this.colorMode, value, this.OnSettingsChanged);
+            set
+            {
+                SetProperty(ref this.colorMode, value, this.OnSettingsChanged);
+                SaveSettings(this.colorMode);
+            }
         }
 
         protected DPIScaling dpiScaling;
         public DPIScaling DPIScaling
         {
             get => (this.DPIScalingChecked ?? false) ? this.dpiScaling : DPIScaling.None;
-            set => SetProperty(ref this.dpiScaling, value, this.OnSettingsChanged);
+            set
+            {
+                SetProperty(ref this.dpiScaling, value, this.OnSettingsChanged);
+                SaveSettings(this.dpiScaling);
+            }
         }
 
         protected OtherFlags otherFlags;
@@ -155,8 +167,26 @@ namespace CompatibilityManager.ViewModels
 
         #region Helper methods
 
+        protected void SaveSettings(CompatibilityMode compatibilityMode)
         {
+            Properties.Settings.Default.LastCompatibilityMode = compatibilityMode;
+            Properties.Settings.Default.Save();
+        }
+
+        protected void SaveSettings(ColorMode colorMode)
+        {
+            Properties.Settings.Default.LastColorMode = colorMode;
+            Properties.Settings.Default.Save();
+        }
+
+        protected void SaveSettings(DPIScaling dpiScaling)
+        {
+            Properties.Settings.Default.LastDPIScaling = dpiScaling;
+            Properties.Settings.Default.Save();
+        }
+
         protected void OnSettingsChanged()
+        {
             this.HasChanged = true;
             RaisePropertyChanged(nameof(this.IsCleared));
         }
