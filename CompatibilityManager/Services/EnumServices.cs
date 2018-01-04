@@ -12,6 +12,14 @@ namespace CompatibilityManager.Services
     /// </summary>
     public static class EnumServices
     {
+        /// <summary>
+        /// Check that provided type is an Enum type. Throw ArgumentException otherwise.
+        /// </summary>
+        public static void TEnumTypeCheck<TEnum>()
+        {
+            if (!typeof(TEnum).IsEnum) { throw new ArgumentException(string.Format(Resources.Strings.EnumTypeArgumentException, nameof(TEnum))); }
+        }
+
         private static TAttribute GetAttributeOfType<TAttribute, TEnum>(this TEnum enumValue)
             where TAttribute : Attribute
             where TEnum : struct, IComparable, IFormattable, IConvertible
@@ -26,7 +34,8 @@ namespace CompatibilityManager.Services
         public static string GetDescription<TEnum>(this TEnum enumValue)
             where TEnum : struct, IComparable, IFormattable, IConvertible
         {
-            if (!typeof(TEnum).IsEnum) { throw new ArgumentException(string.Format("{0} must be an Enum type.", nameof(TEnum))); }
+            TEnumTypeCheck<TEnum>();
+
             var browsable = enumValue.GetAttributeOfType<BrowsableAttribute, TEnum>()?.Browsable ?? true;
             var description = enumValue.GetAttributeOfType<DescriptionAttribute, TEnum>()?.Description ?? enumValue.ToString();
             return browsable ? description : string.Empty;
@@ -39,6 +48,8 @@ namespace CompatibilityManager.Services
         public static Dictionary<TEnum, string> GetDescriptions<TEnum>()
             where TEnum : struct, IComparable, IFormattable, IConvertible
         {
+            TEnumTypeCheck<TEnum>();
+
             var descriptions = new Dictionary<TEnum, string>();
             foreach (var enumValue in Enum.GetValues(typeof(TEnum)).Cast<TEnum>())
             {
@@ -50,18 +61,24 @@ namespace CompatibilityManager.Services
         /// <summary>
         /// Convert a TEnum value to its AppCompatFlag REG_SZ representation based on a Description lookup table.
         /// </summary>
+        /// <typeparam name="TEnum">Must be an Enum type.</typeparam>
         public static string ToRegistryString<TEnum>(this TEnum enumValue, Dictionary<TEnum, string> descriptions)
             where TEnum : struct, IComparable, IFormattable, IConvertible
         {
+            TEnumTypeCheck<TEnum>();
+
             return descriptions[enumValue];
         }
 
         /// <summary>
         /// Convert an AppCompatFlag REG_SZ to its TEnum representation based on a Description lookup table.
         /// </summary>
+        /// <typeparam name="TEnum">Must be an Enum type.</typeparam>
         public static TEnum FromRegistryString<TEnum>(string registryString, Dictionary<TEnum, string> descriptions)
             where TEnum : struct, IComparable, IFormattable, IConvertible
         {
+            TEnumTypeCheck<TEnum>();
+
             var matches = descriptions.Where(kvp => registryString.Contains(kvp.Value));
             if (matches.Any()) { return matches.Last().Key; }
             return default(TEnum);

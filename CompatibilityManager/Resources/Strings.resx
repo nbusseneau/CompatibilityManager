@@ -240,4 +240,7 @@ Confirm?</value>
   <data name="HKLM" xml:space="preserve">
     <value>Local Machine</value>
   </data>
+  <data name="EnumTypeArgumentException" xml:space="preserve">
+    <value>{0} must be an Enum type.</value>
+  </data>
 </root>

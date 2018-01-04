@@ -316,6 +316,15 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} must be an Enum type..
+        /// </summary>
+        public static string EnumTypeArgumentException {
+            get {
+                return ResourceManager.GetString("EnumTypeArgumentException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current User.
         /// </summary>
         public static string HKCU {
