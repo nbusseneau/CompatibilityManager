@@ -1,6 +1,6 @@
 # Compatibility Manager
 
-A Windows app for bulk editing compatibility settings. It allows you to quickly enable/disable compatibility settings for multiple executables at once, instead of having to go through them one by one.
+A Windows app for bulk editing compatibility settings. It allows you to quickly enable/disable compatibility settings for multiple applications at once, instead of having to go through them one by one.
 
 ## Installation
 
@@ -34,5 +34,5 @@ Because it does a bit more than that. Please don't assume Compatibility Manager'
 
 ## What are all these compatibility settings for anyway?
 
-The app mirrors exactly what you'd find in the Compatibility tab of an executable's properties.
+The app mirrors exactly what you'd find in the Compatibility tab of an application's properties.
 A good place to start would be the [official Windows documentation](https://support.microsoft.com/en-us/help/15078/windows-make-older-programs-compatible).
