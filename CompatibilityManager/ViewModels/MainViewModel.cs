@@ -130,28 +130,44 @@ namespace CompatibilityManager.ViewModels
             else { return this.HKLMApplications; }
         }
 
-        private void Save(IEnumerable<ApplicationViewModel> applications)
+        private async void Save(IEnumerable<ApplicationViewModel> applications)
         {
             var warning = MessageBox.Show(Application.Current.MainWindow, Resources.Strings.SaveWarning, Resources.Strings.WarningTitle, MessageBoxButton.OKCancel);
             if (warning != MessageBoxResult.OK) { return; }
 
-            var applicationsCopy = new List<ApplicationViewModel>(applications); // Copy required for iteration since we might remove items
-            foreach (var application in applicationsCopy)
+            this.IsWaiting = true;
+
+            var applicationsRemoved = await System.Threading.Tasks.Task.Run(() =>
             {
-                var appCompatFlags = application.Settings.ToRegistryString();
-                if (string.IsNullOrWhiteSpace(appCompatFlags))
+                var taskApplicationsCopy = new List<ApplicationViewModel>(applications); // Copy required for iteration since we might remove items
+                var taskApplicationsRemoved = new List<ApplicationViewModel>();
+
+                foreach (var application in taskApplicationsCopy)
                 {
-                    try { application.RegistryKey.DeleteValue(application.Path); }
-                    catch (ArgumentException) { } // Trying to delete application that does not exist in registry -- was added by user but no settings specified
-                    this.GetApplicationListViewModel(application.RegistryKey).Applications.Remove(application);
+                    var appCompatFlags = application.Settings.ToRegistryString();
+                    if (string.IsNullOrWhiteSpace(appCompatFlags))
+                    {
+                        try { application.RegistryKey.DeleteValue(application.Path); }
+                        catch (ArgumentException) { } // Trying to delete application that does not exist in registry -- was added by user but no settings specified
+                        finally { taskApplicationsRemoved.Add(application); }
+                    }
+                    else
+                    {
+                        application.RegistryKey.SetValue(application.Path, appCompatFlags);
+                        application.ReloadSettings();
+                    }
                 }
-                else
-                {
-                    application.RegistryKey.SetValue(application.Path, appCompatFlags);
-                    application.ReloadSettings();
-                }
+
+                return taskApplicationsRemoved;
+            });
+
+            foreach (var application in applicationsRemoved)
+            {
+                this.GetApplicationListViewModel(application.RegistryKey).Applications.Remove(application);
             }
             this.ComputeAggregatedSettings();
+
+            this.IsWaiting = false;
         }
 
         #endregion
