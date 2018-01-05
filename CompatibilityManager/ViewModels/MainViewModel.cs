@@ -91,7 +91,7 @@ namespace CompatibilityManager.ViewModels
         
         private void SubscribeEvents()
         {
-            this.selectionChanged = SelectionChanged.Instance.Subscribe(() => this.OnSelectionChanged());
+            this.selectionChanged = SelectionChanged.Instance.Subscribe(this.OnSelectionChanged);
             this.OnSelectionChanged();
         }
 

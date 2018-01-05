@@ -57,7 +57,7 @@ namespace CompatibilityManager.ViewModels
 
         private void SubscribeEvents()
         {
-            this.isSelectedChanged = IsSelectedChanged.Instance.Subscribe(() => this.OnIsSelectedChanged());
+            this.isSelectedChanged = IsSelectedChanged.Instance.Subscribe(this.OnIsSelectedChanged);
             this.OnIsSelectedChanged();
         }
 

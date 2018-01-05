@@ -35,7 +35,7 @@ namespace CompatibilityManager.ViewModels
         public bool IsSelected
         {
             get => this.isSelected;
-            set => SetProperty(ref this.isSelected, value, () => IsSelectedChanged.Instance.Publish());
+            set => SetProperty(ref this.isSelected, value, IsSelectedChanged.Instance.Publish);
         }
 
         #endregion
