@@ -94,7 +94,7 @@ namespace CompatibilityManager.ViewModels
             {
                 this.UnsubscribeEvents();
 
-                var paths = System.IO.Directory.EnumerateFiles(openFolderDialog.SelectedPath, "*.exe", System.IO.SearchOption.AllDirectories);
+                var paths = System.IO.SafeDirectory.SafeEnumerateFiles(openFolderDialog.SelectedPath, "*.exe", System.IO.SearchOption.AllDirectories);
                 paths = paths.Where(path => !this.Applications.Any(application => application.Path.Equals(path)));
                 this.Applications.AddRange(paths.Select(path => new ApplicationViewModel(path, this.RegistryKey, isSelected: true)));
 
