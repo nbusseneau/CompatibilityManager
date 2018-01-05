@@ -12,9 +12,9 @@
     <Company>SkyCorp</Company>
     <Product>Compatibility Manager</Product>
     <Copyright>© 2017 Skymirrh</Copyright>
-    <AssemblyVersion>0.3</AssemblyVersion>
-    <AssemblyFileVersion>0.3.4</AssemblyFileVersion>
-    <AssemblyInformationalVersion>0.3.4-alpha</AssemblyInformationalVersion>
+    <AssemblyVersion>0.4</AssemblyVersion>
+    <AssemblyFileVersion>0.4.0</AssemblyFileVersion>
+    <AssemblyInformationalVersion>0.4.0-beta</AssemblyInformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
