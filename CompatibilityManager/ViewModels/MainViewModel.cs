@@ -6,6 +6,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace CompatibilityManager.ViewModels
@@ -137,12 +138,12 @@ namespace CompatibilityManager.ViewModels
 
             this.IsWaiting = true;
 
-            var applicationsRemoved = await System.Threading.Tasks.Task.Run(() =>
+            var removedOrModifiedApplications = await Task.Run(() =>
             {
-                var taskApplicationsCopy = new List<ApplicationViewModel>(applications); // Copy required for iteration since we might remove items
                 var taskApplicationsRemoved = new List<ApplicationViewModel>();
+                var taskApplicationsModified = new List<ApplicationViewModel>();
 
-                foreach (var application in taskApplicationsCopy)
+                foreach (var application in applications)
                 {
                     var appCompatFlags = application.Settings.ToRegistryString();
                     if (string.IsNullOrWhiteSpace(appCompatFlags))
@@ -154,16 +155,20 @@ namespace CompatibilityManager.ViewModels
                     else
                     {
                         application.RegistryKey.SetValue(application.Path, appCompatFlags);
-                        application.ReloadSettings();
+                        taskApplicationsModified.Add(application);
                     }
                 }
 
-                return taskApplicationsRemoved;
+                return new Tuple<IEnumerable<ApplicationViewModel>, IEnumerable<ApplicationViewModel>>(taskApplicationsRemoved, taskApplicationsModified);
             });
 
-            foreach (var application in applicationsRemoved)
+            foreach (var application in removedOrModifiedApplications.Item1)
             {
                 this.GetApplicationListViewModel(application.RegistryKey).Applications.Remove(application);
+            }
+            foreach (var application in removedOrModifiedApplications.Item2)
+            {
+                application.ReloadSettings();
             }
             this.ComputeAggregatedSettings();
 
