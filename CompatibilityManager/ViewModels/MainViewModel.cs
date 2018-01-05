@@ -89,10 +89,12 @@ namespace CompatibilityManager.ViewModels
         #region Event subscriptions
 
         private SubscriptionToken selectionChanged;
-        
+        private SubscriptionToken isWaitingDisplayed;
+
         private void SubscribeEvents()
         {
             this.selectionChanged = SelectionChanged.Instance.Subscribe(this.OnSelectionChanged);
+            this.isWaitingDisplayed = IsWaitingDisplayed.Instance.Subscribe(this.OnIsWaitingDisplayed);
             this.OnSelectionChanged();
         }
 
@@ -112,6 +114,11 @@ namespace CompatibilityManager.ViewModels
             RaisePropertyChanged(nameof(this.IsAnySelected));
             this.ReloadCommand.RaiseCanExecuteChanged();
             this.SaveCommand.RaiseCanExecuteChanged();
+        }
+
+        private void OnIsWaitingDisplayed(bool value)
+        {
+            this.IsWaiting = value;
         }
 
         #endregion

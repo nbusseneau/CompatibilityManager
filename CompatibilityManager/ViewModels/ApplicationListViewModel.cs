@@ -3,8 +3,10 @@ using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace CompatibilityManager.ViewModels
@@ -12,6 +14,11 @@ namespace CompatibilityManager.ViewModels
     public class SelectionChanged : PubSubEvent
     {
         public static SelectionChanged Instance { get; } = MainViewModel.EventAggregator.GetEvent<SelectionChanged>();
+    }
+
+    public class IsWaitingDisplayed : PubSubEvent<bool>
+    {
+        public static IsWaitingDisplayed Instance { get; } = MainViewModel.EventAggregator.GetEvent<IsWaitingDisplayed>();
     }
 
     public class ApplicationListViewModel : BindableBase
@@ -92,13 +99,8 @@ namespace CompatibilityManager.ViewModels
 
             if (openFolderDialog.ShowDialog(win32Window) == System.Windows.Forms.DialogResult.OK)
             {
-                this.UnsubscribeEvents();
-
                 var paths = System.IO.SafeDirectory.SafeEnumerateFiles(openFolderDialog.SelectedPath, "*.exe", System.IO.SearchOption.AllDirectories);
-                paths = paths.Where(path => !this.Applications.Any(application => application.Path.Equals(path)));
-                this.Applications.AddRange(paths.Select(path => new ApplicationViewModel(path, this.RegistryKey, isSelected: true)));
-
-                this.SubscribeEvents();
+                this.AddPaths(paths);
             }
         }
 
@@ -114,19 +116,27 @@ namespace CompatibilityManager.ViewModels
 
             if (openFileDialog.ShowDialog(Application.Current.MainWindow).Value)
             {
-                this.UnsubscribeEvents();
-
                 var paths = openFileDialog.FileNames.Where(path => !this.Applications.Any(application => application.Path.Equals(path)));
-                foreach (var path in paths)
-                {
-                    if (!this.Applications.Any(application => application.Path.Equals(path)))
-                    {
-                        this.Applications.Add(new ApplicationViewModel(path, this.RegistryKey, isSelected: true));
-                    }
-                }
-
-                this.SubscribeEvents();
+                this.AddPaths(paths);
             }
+        }
+
+        private async void AddPaths(IEnumerable<string> paths)
+        {
+            this.UnsubscribeEvents();
+            IsWaitingDisplayed.Instance.Publish(true);
+
+            var newApplications = await Task.Run(() =>
+            {
+                return paths
+                    .Where(path => !this.Applications.Any(application => application.Path.Equals(path)))
+                    .Select(path => new ApplicationViewModel(path, this.RegistryKey, isSelected: true))
+                    .ToList();
+            });
+            this.Applications.AddRange(newApplications);
+
+            IsWaitingDisplayed.Instance.Publish(false);
+            this.SubscribeEvents();
         }
 
         private void SelectAll()
