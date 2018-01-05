@@ -243,4 +243,8 @@ Confirm?</value>
   <data name="EnumTypeArgumentException" xml:space="preserve">
     <value>{0} must be an Enum type.</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Please wait...
+We're in the middle of some calibrations.</value>
+  </data>
 </root>

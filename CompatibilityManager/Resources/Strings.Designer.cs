@@ -343,6 +343,16 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please wait...
+        ///We&apos;re in the middle of some calibrations..
+        /// </summary>
+        public static string PleaseWait {
+            get {
+                return ResourceManager.GetString("PleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reload selected from registry.
         /// </summary>
         public static string Reload {
