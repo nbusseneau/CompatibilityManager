@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:CompatibilityManager.Converters"
         xmlns:vm="clr-namespace:CompatibilityManager.ViewModels"
         xmlns:services="clr-namespace:CompatibilityManager.Services"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
@@ -32,59 +33,78 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Margin="3">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition>
-                <ColumnDefinition.Style>
-                    <Style TargetType="{x:Type ColumnDefinition}">
-                        <Setter Property="Width" Value="0" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Source={x:Static services:PrivilegesServices.IsRunAsAdmin}}" Value="True">
-                                <Setter Property="Width" Value="*" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ColumnDefinition.Style>
-            </ColumnDefinition>
-            <ColumnDefinition Width="260" />
-        </Grid.ColumnDefinitions>
+    <Grid>
+        <!-- Main content -->
+        <Grid Margin="3" IsEnabled="{Binding IsWaiting, Converter={conv:InverseBooleanConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition>
+                    <ColumnDefinition.Style>
+                        <Style TargetType="{x:Type ColumnDefinition}">
+                            <Setter Property="Width" Value="0" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={x:Static services:PrivilegesServices.IsRunAsAdmin}}" Value="True">
+                                    <Setter Property="Width" Value="*" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ColumnDefinition.Style>
+                </ColumnDefinition>
+                <ColumnDefinition Width="260" />
+            </Grid.ColumnDefinitions>
         
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <ContentPresenter Grid.Row="0" Grid.Column="0"
-                          Margin="0,3,0,3"
-                          Content="{Binding HKCUApplications}" />
+            <ContentPresenter Grid.Row="0" Grid.Column="0"
+                              Margin="0,3,0,3"
+                              Content="{Binding HKCUApplications}" />
 
-        <ContentPresenter Grid.Row="0" Grid.Column="1"
-                          Margin="3,3,0,3"
-                          Content="{Binding HKLMApplications}" />
+            <ContentPresenter Grid.Row="0" Grid.Column="1"
+                              Margin="3,3,0,3"
+                              Content="{Binding HKLMApplications}" />
 
-        <ContentControl Grid.Row="0" Grid.Column="2"
-                        Margin="3,3,0,3"
-                        Content="{Binding DisplayedSettings}"
-                        IsEnabled="{Binding IsAnySelected}" />
+            <ContentControl Grid.Row="0" Grid.Column="2"
+                            Margin="3,3,0,3"
+                            Content="{Binding DisplayedSettings}"
+                            IsEnabled="{Binding IsAnySelected}" />
 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button Margin="0,0,3,0"
-                    Tag="&#xE117;"
-                    Content="{lex:Loc Reload}"
-                    Command="{Binding ReloadCommand}" />
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <Button Margin="0,0,3,0"
+                        Tag="&#xE117;"
+                        Content="{lex:Loc Reload}"
+                        Command="{Binding ReloadCommand}" />
 
-            <Button Tag="&#xE105;"
-                    Content="{lex:Loc Save}"
-                    Command="{Binding SaveCommand}" />
-        </StackPanel>
-
-        <Button Grid.Row="1" Grid.Column="2"
-                Command="{Binding ElevateCommand}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="{Binding Source={x:Static services:PrivilegesServices.ShieldIcon}}" Width="15" Margin="0,0,1,0"/>
-                <TextBlock Text="{lex:Loc Elevate}" />
+                <Button Tag="&#xE105;"
+                        Content="{lex:Loc Save}"
+                        Command="{Binding SaveCommand}" />
             </StackPanel>
-        </Button>
+
+            <Button Grid.Row="1" Grid.Column="2"
+                    Command="{Binding ElevateCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding Source={x:Static services:PrivilegesServices.ShieldIcon}}" Width="15" Margin="0,0,1,0"/>
+                    <TextBlock Text="{lex:Loc Elevate}" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- "Please wait" message -->
+        <Grid Visibility="{Binding IsWaiting, Converter={conv:BooleanToVisibilityConverter}}">
+            <Rectangle Fill="White" Opacity="0.75" />
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Padding="10"
+                        BorderThickness="1"
+                        BorderBrush="Black"
+                        Background="White">
+                    <TextBlock Text="{lex:Loc PleaseWait}"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               TextAlignment="Center" />
+                </Border>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

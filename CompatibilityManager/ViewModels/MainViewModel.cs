@@ -27,6 +27,13 @@ namespace CompatibilityManager.ViewModels
 
         #region Properties
 
+        private bool isWaiting;
+        public bool IsWaiting
+        {
+            get => this.isWaiting;
+            set => SetProperty(ref this.isWaiting, value);
+        }
+
         public ApplicationListViewModel HKCUApplications { get; private set; }
         public ApplicationListViewModel HKLMApplications { get; private set; }
 
