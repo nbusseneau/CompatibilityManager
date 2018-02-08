@@ -24,9 +24,9 @@ namespace CompatibilityManager.Enums
         public static Dictionary<OtherFlags, string> Descriptions => descriptions ?? (descriptions = EnumServices.GetDescriptions<OtherFlags>());
 
         /// <summary>
-        /// Convert Other flags to their AppCompatFlag REG_SZ representation.
+        /// Convert OtherFlags to their AppCompatFlag REG_SZ representation.
         /// </summary>
-        public static string ToRegistryString(this OtherFlags enumValue)
+        public static List<string> ToRegistryString(this OtherFlags enumValue)
         {
             var appCompatFlags = new List<string>();
             foreach (var flag in Enum.GetValues(typeof(OtherFlags)).Cast<OtherFlags>())
@@ -34,20 +34,22 @@ namespace CompatibilityManager.Enums
                 var description = OtherFlagsServices.Descriptions[flag];
                 if (enumValue.HasFlag(flag) && !string.IsNullOrWhiteSpace(description)) { appCompatFlags.Add(description); }
             }
-            return string.Join(" ", appCompatFlags);
+            return appCompatFlags;
         }
 
         /// <summary>
         /// Convert an AppCompatFlag REG_SZ to its OtherFlags representation.
         /// </summary>
-        public static OtherFlags FromRegistryString(string registryString)
+        public static OtherFlags FromRegistryString(ref List<string> substrings)
         {
             var otherFlags = OtherFlags.None;
-            var substrings = registryString.Split();
-            foreach (var substring in substrings)
+            foreach (var kvp in OtherFlagsServices.Descriptions)
             {
-                var matches = OtherFlagsServices.Descriptions.Where(kvp => kvp.Value.Equals(substring));
-                if (matches.Any()) { otherFlags |= matches.First().Key; }
+                if (substrings.Contains(kvp.Value))
+                {
+                    substrings.Remove(kvp.Value);
+                    otherFlags |= kvp.Key;
+                }
             }
             return otherFlags;
         }

@@ -31,9 +31,9 @@ namespace CompatibilityManager.Enums
         /// <summary>
         /// Convert an AppCompatFlag REG_SZ to its DPIScaling representation.
         /// </summary>
-        public static DPIScaling FromRegistryString(string registryString)
+        public static DPIScaling FromRegistryString(ref List<string> substrings)
         {
-            return EnumServices.FromRegistryString<DPIScaling>(registryString, DPIScalingServices.Descriptions);
+            return EnumServices.FromRegistryString<DPIScaling>(ref substrings, DPIScalingServices.Descriptions);
         }
     }
 }

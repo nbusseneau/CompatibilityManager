@@ -11,7 +11,8 @@ namespace CompatibilityManager.Services
     {
         #region AppCompatFlags registry keys
 
-        private static string AppCompatFlagsRegistryKey { get; } = @"Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
+        private const string W8Prefix = "~";
+        private const string AppCompatFlagsRegistryKey = @"Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
 
         public static RegistryKey HKCUKey { get; } = GetRegistryKey(hklm: false);
         public static RegistryKey HKLMKey { get; } = GetRegistryKey(hklm: true);
@@ -53,26 +54,51 @@ namespace CompatibilityManager.Services
         }
 
         /// <summary>
-        /// Convert enums to their AppCompatFlag REG_SZ representation.
+        /// Convert AppCompatFlag REG_SZ to their settings representation.
         /// </summary>
-        public static string ToRegistryString(CompatibilityMode compatibilityMode, ColorMode colorMode, DPIScaling dpiScaling, OtherFlags otherFlags)
+        public static Tuple<CompatibilityMode, ColorMode, DPIScaling, OtherFlags, List<string>> FromRegistryString(string registryString)
         {
-            var settings = new List<string>()
+            var substrings = new List<string>(registryString.Split());
+
+            // On Windows 8 or above, a tilde is appended at beginning of the string.
+            if (OSVersionServices.IsWindows8OrAbove && substrings.Contains(RegistryServices.W8Prefix))
+            {
+                substrings.Remove(RegistryServices.W8Prefix);
+            }
+
+            var compatibilityMode = CompatibilityModeServices.FromRegistryString(ref substrings);
+            var colorMode = ColorModeServices.FromRegistryString(ref substrings);
+            var dpiScaling = DPIScalingServices.FromRegistryString(ref substrings);
+            var otherFlags = OtherFlagsServices.FromRegistryString(ref substrings);
+            var additionalFlags = substrings; // Whatever wasn't matched by known flags
+            
+            return new Tuple<CompatibilityMode, ColorMode, DPIScaling, OtherFlags, List<string>>(compatibilityMode, colorMode, dpiScaling, otherFlags, additionalFlags);
+        }
+
+        /// <summary>
+        /// Convert settings to their AppCompatFlag REG_SZ representation.
+        /// </summary>
+        public static string ToRegistryString(CompatibilityMode compatibilityMode, ColorMode colorMode, DPIScaling dpiScaling, OtherFlags otherFlags, List<string> additionalFlags)
+        {
+            var substrings = new List<string>();
+
+            // Add all flags
+            substrings.AddRange(new List<string>()
             {
                 compatibilityMode.ToRegistryString(),
                 colorMode.ToRegistryString(),
                 dpiScaling.ToRegistryString(),
-                otherFlags.ToRegistryString(),
-            }.Where(s => !string.IsNullOrWhiteSpace(s));
-
-            var appCompatFlags = string.Join(" ", settings);
+            }.Where(s => !string.IsNullOrWhiteSpace(s)));
+            substrings.AddRange(otherFlags.ToRegistryString());
+            substrings.AddRange(additionalFlags);
 
             // On Windows 8 or above, a tilde is appended at beginning of the string.
-            if (!string.IsNullOrWhiteSpace(appCompatFlags) && OSVersionServices.IsWindows8OrAbove)
+            if (substrings.Any() && OSVersionServices.IsWindows8OrAbove)
             {
-                appCompatFlags = string.Format("~ {0}", appCompatFlags);
+                substrings.Insert(0, RegistryServices.W8Prefix);
             }
 
+            var appCompatFlags = string.Join(" ", substrings);
             return appCompatFlags;
         }
     }

@@ -74,13 +74,19 @@ namespace CompatibilityManager.Services
         /// Convert an AppCompatFlag REG_SZ to its TEnum representation based on a Description lookup table.
         /// </summary>
         /// <typeparam name="TEnum">Must be an Enum type.</typeparam>
-        public static TEnum FromRegistryString<TEnum>(string registryString, Dictionary<TEnum, string> descriptions)
+        public static TEnum FromRegistryString<TEnum>(ref List<string> substrings, Dictionary<TEnum, string> descriptions)
             where TEnum : struct, IComparable, IFormattable, IConvertible
         {
             TEnumTypeCheck<TEnum>();
 
-            var matches = descriptions.Where(kvp => registryString.Contains(kvp.Value));
-            if (matches.Any()) { return matches.Last().Key; }
+            foreach (var kvp in descriptions)
+            {
+                if (substrings.Contains(kvp.Value))
+                {
+                    substrings.Remove(kvp.Value);
+                    return kvp.Key;
+                }
+            }
             return default(TEnum);
 
             // For future reference, the reason for using Last instead of First is due to DPIScaling:

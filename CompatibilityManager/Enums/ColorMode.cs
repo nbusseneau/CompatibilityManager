@@ -30,9 +30,9 @@ namespace CompatibilityManager.Enums
         /// <summary>
         /// Convert an AppCompatFlag REG_SZ to its ColorMode representation.
         /// </summary>
-        public static ColorMode FromRegistryString(string registryString)
+        public static ColorMode FromRegistryString(ref List<string> substrings)
         {
-            return EnumServices.FromRegistryString<ColorMode>(registryString, ColorModeServices.Descriptions);
+            return EnumServices.FromRegistryString<ColorMode>(ref substrings, ColorModeServices.Descriptions);
         }
     }
 }
