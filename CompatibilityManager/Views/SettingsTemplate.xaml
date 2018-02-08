@@ -8,56 +8,59 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             
             <Label Grid.Row="0"
                    Content="{Binding Title}" />
 
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="1"
+                          PanningMode="VerticalOnly"
+                          VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0">
-                    <CheckBox Content="{lex:Loc CompatibilityMode}"
-                              IsChecked="{Binding CompatibilityModeChecked}" />
-                    <lex:EnumComboBox IsEnabled="{Binding CompatibilityModeChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
-                                      Type="{x:Type enum:CompatibilityMode}" PrependType="True"
-                                      SelectedItem="{Binding CompatibilityMode}" />
-                </StackPanel>
+                    <StackPanel Grid.Row="0">
+                        <CheckBox Content="{lex:Loc CompatibilityMode}"
+                                  IsChecked="{Binding CompatibilityModeChecked}" />
+                        <lex:EnumComboBox IsEnabled="{Binding CompatibilityModeChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
+                                          Type="{x:Type enum:CompatibilityMode}" PrependType="True"
+                                          SelectedItem="{Binding CompatibilityMode}" />
+                    </StackPanel>
 
-                <StackPanel Grid.Row="1">
-                    <CheckBox Content="{lex:Loc ColorMode}"
-                              IsChecked="{Binding ColorModeChecked}" />
-                    <lex:EnumComboBox IsEnabled="{Binding ColorModeChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
-                                      Type="{x:Type enum:ColorMode}" PrependType="True"
-                                      SelectedItem="{Binding ColorMode}" />
-                </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <CheckBox Content="{lex:Loc ColorMode}"
+                                  IsChecked="{Binding ColorModeChecked}" />
+                        <lex:EnumComboBox IsEnabled="{Binding ColorModeChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
+                                          Type="{x:Type enum:ColorMode}" PrependType="True"
+                                          SelectedItem="{Binding ColorMode}" />
+                    </StackPanel>
 
-                <CheckBox Grid.Row="2" Content="{lex:Loc Resolution640x480}"
-                          IsChecked="{Binding Resolution640x480Checked}" />
+                    <CheckBox Grid.Row="2" Content="{lex:Loc Resolution640x480}"
+                              IsChecked="{Binding Resolution640x480Checked}" />
 
-                <StackPanel Grid.Row="3">
-                    <CheckBox Content="{lex:Loc DPIScaling}"
-                              IsChecked="{Binding DPIScalingChecked}" />
-                    <lex:EnumComboBox IsEnabled="{Binding DPIScalingChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
-                                      Type="{x:Type enum:DPIScaling}" PrependType="True"
-                                      SelectedItem="{Binding DPIScaling}" />
-                </StackPanel>
+                    <StackPanel Grid.Row="3">
+                        <CheckBox Content="{lex:Loc DPIScaling}"
+                                  IsChecked="{Binding DPIScalingChecked}" />
+                        <lex:EnumComboBox IsEnabled="{Binding DPIScalingChecked, Mode=OneWay, Converter={conv:NullableBoolToBoolConverter}}"
+                                          Type="{x:Type enum:DPIScaling}" PrependType="True"
+                                          SelectedItem="{Binding DPIScaling}" />
+                    </StackPanel>
 
-                <CheckBox Grid.Row="4" Content="{lex:Loc DisableFullscreenOptimizations}"
-                          IsChecked="{Binding DisableFullscreenOptimizationsChecked}" />
+                    <CheckBox Grid.Row="4" Content="{lex:Loc DisableFullscreenOptimizations}"
+                              IsChecked="{Binding DisableFullscreenOptimizationsChecked}" />
 
-                <CheckBox Grid.Row="5" Content="{lex:Loc RunAsAdministrator}"
-                          IsChecked="{Binding RunAsAdministratorChecked}" />
+                    <CheckBox Grid.Row="5" Content="{lex:Loc RunAsAdministrator}"
+                              IsChecked="{Binding RunAsAdministratorChecked}" />
 
                 <StackPanel Grid.Row="6">
                     <Label Content="{lex:Loc AdditionalFlags}" />
@@ -75,6 +78,7 @@
                         Content="{lex:Loc Clear}"
                         Command="{Binding ClearCommand}" />
             </Grid>
+            </ScrollViewer>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>
