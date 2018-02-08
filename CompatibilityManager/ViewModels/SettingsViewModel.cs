@@ -162,6 +162,7 @@ namespace CompatibilityManager.ViewModels
         #region Commands
 
         public DelegateCommand ClearCommand { get; protected set; }
+        public DelegateCommand AddCommand { get; protected set; }
 
         #endregion
 
@@ -170,6 +171,7 @@ namespace CompatibilityManager.ViewModels
         public SettingsViewModel()
         {
             this.ClearCommand = new DelegateCommand(this.Clear);
+            this.AddCommand = new DelegateCommand(this.AddFlag);
         }
 
         public SettingsViewModel(string registryString) : this()
@@ -204,10 +206,12 @@ namespace CompatibilityManager.ViewModels
         #region Event subscriptions
 
         private SubscriptionToken flagChanged;
+        private SubscriptionToken removeCommandIssued;
 
         private void SubscribeEvents()
         {
             this.flagChanged = this.eventAggregator.GetEvent<FlagChanged>().Subscribe(this.OnSettingsChanged);
+            this.removeCommandIssued = this.eventAggregator.GetEvent<RemoveCommandIssued>().Subscribe(this.RemoveFlag);
         }
 
         #endregion
@@ -247,7 +251,7 @@ namespace CompatibilityManager.ViewModels
             this.ColorMode = settings.ColorMode != ColorMode.None ? settings.ColorMode : this.ColorMode;
             this.DPIScaling = settings.DPIScaling != DPIScaling.None ? settings.DPIScaling : this.DPIScaling;
             this.OtherFlags = settings.OtherFlags;
-            this.AdditionalFlags = settings.AdditionalFlags;
+            this.AdditionalFlags = new ObservableRangeCollection<AdditionalFlagViewModel>(settings.AdditionalFlags.Select(flag => new AdditionalFlagViewModel(this.eventAggregator, flag.Flag)));
 
             // Reload checkboxes
             this.CompatibilityModeChecked = settings.CompatibilityModeChecked;
@@ -280,6 +284,18 @@ namespace CompatibilityManager.ViewModels
             this.DisableFullscreenOptimizationsChecked = false;
             this.RunAsAdministratorChecked = false;
             this.AdditionalFlags = new ObservableRangeCollection<AdditionalFlagViewModel>();
+        }
+
+        protected void AddFlag()
+        {
+            this.AdditionalFlags.Add(new AdditionalFlagViewModel(this.eventAggregator));
+            this.OnSettingsChanged();
+        }
+
+        protected void RemoveFlag(AdditionalFlagViewModel additionalFlagViewModel)
+        {
+            this.AdditionalFlags.Remove(additionalFlagViewModel);
+            this.OnSettingsChanged();
         }
 
         #endregion
