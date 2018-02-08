@@ -23,6 +23,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0">
@@ -58,7 +59,18 @@
                 <CheckBox Grid.Row="5" Content="{lex:Loc RunAsAdministrator}"
                           IsChecked="{Binding RunAsAdministratorChecked}" />
 
-                <Button Grid.Row="6"
+                <StackPanel Grid.Row="6">
+                    <Label Content="{lex:Loc AdditionalFlags}" />
+                    <ItemsControl ItemsSource="{Binding AdditionalFlags}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Flag}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <Button Grid.Row="7"
                         Tag="&#xE107;"
                         Content="{lex:Loc Clear}"
                         Command="{Binding ClearCommand}" />
