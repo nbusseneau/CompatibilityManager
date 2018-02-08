@@ -99,6 +99,15 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Additional flags.
+        /// </summary>
+        public static string AdditionalFlags {
+            get {
+                return ResourceManager.GetString("AdditionalFlags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multi-selection settings.
         /// </summary>
         public static string AggregatedSettings {

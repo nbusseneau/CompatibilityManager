@@ -247,4 +247,7 @@ Confirm?</value>
     <value>Please wait...
 We're in the middle of some calibrations.</value>
   </data>
+  <data name="AdditionalFlags" xml:space="preserve">
+    <value>Additional flags</value>
+  </data>
 </root>
