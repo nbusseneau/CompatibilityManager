@@ -62,22 +62,39 @@
                     <CheckBox Grid.Row="5" Content="{lex:Loc RunAsAdministrator}"
                               IsChecked="{Binding RunAsAdministratorChecked}" />
 
-                <StackPanel Grid.Row="6">
-                    <Label Content="{lex:Loc AdditionalFlags}" />
-                    <ItemsControl ItemsSource="{Binding AdditionalFlags}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding Flag}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
+                    <Button Grid.Row="6"
+                            Margin="0 15 0 5"
+                            Tag="&#xE107;"
+                            Content="{lex:Loc Clear}"
+                            Command="{Binding ClearCommand}" />
 
-                <Button Grid.Row="7"
-                        Tag="&#xE107;"
-                        Content="{lex:Loc Clear}"
-                        Command="{Binding ClearCommand}" />
-            </Grid>
+                    <StackPanel Grid.Row="7">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+                            </Style>
+                        </StackPanel.Resources>
+                        
+                        <Label Content="{lex:Loc AdditionalFlags}" />
+                        <ItemsControl ItemsSource="{Binding AdditionalFlags}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type vm:AdditionalFlagViewModel}">
+                                    <DockPanel>
+                                        <Button DockPanel.Dock="Right"
+                                                Content="&#xE108;"
+                                                Command="{Binding RemoveCommand}"
+                                                CommandParameter="{Binding}" />
+                                        <TextBox DockPanel.Dock="Left"
+                                                 Width="Auto" Height="Auto"
+                                                 Text="{Binding Flag, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Content="&#xE109;"
+                                Command="{Binding AddCommand}" />
+                    </StackPanel>
+                </Grid>
             </ScrollViewer>
         </Grid>
     </DataTemplate>
