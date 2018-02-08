@@ -50,7 +50,7 @@
                         </Style>
                     </ColumnDefinition.Style>
                 </ColumnDefinition>
-                <ColumnDefinition Width="260" />
+                <ColumnDefinition Width="275" />
             </Grid.ColumnDefinitions>
         
             <Grid.RowDefinitions>
