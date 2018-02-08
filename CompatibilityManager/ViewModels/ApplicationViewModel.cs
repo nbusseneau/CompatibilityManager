@@ -1,5 +1,4 @@
 ﻿using CompatibilityManager.Services;
-using CompatibilityManager.Resources;
 using Prism.Mvvm;
 using Prism.Events;
 using Microsoft.Win32;
