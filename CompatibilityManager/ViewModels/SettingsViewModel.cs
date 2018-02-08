@@ -1,13 +1,19 @@
 ﻿using CompatibilityManager.Enums;
 using CompatibilityManager.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CompatibilityManager.ViewModels
 {
     public class SettingsViewModel : BindableBase
     {
+        protected EventAggregator eventAggregator;
+
         #region Properties
 
         #region State
@@ -23,13 +29,14 @@ namespace CompatibilityManager.ViewModels
             this.CompatibilityMode == CompatibilityMode.None
             && this.ColorMode == ColorMode.None
             && this.DPIScaling == DPIScaling.None
-            && this.OtherFlags == OtherFlags.None;
+            && this.OtherFlags == OtherFlags.None
+            && !this.AdditionalFlags.Any();
 
         public virtual string Title => Resources.Strings.ApplicationSettings;
 
         #endregion
 
-        #region Compatibility settings
+        #region Settings
         
         protected CompatibilityMode compatibilityMode;
         public CompatibilityMode CompatibilityMode
@@ -69,6 +76,13 @@ namespace CompatibilityManager.ViewModels
         {
             get => this.otherFlags;
             set => SetProperty(ref this.otherFlags, value, this.OnSettingsChanged);
+        }
+
+        protected ObservableRangeCollection<AdditionalFlagViewModel> additionalFlags = new ObservableRangeCollection<AdditionalFlagViewModel>();
+        public ObservableRangeCollection<AdditionalFlagViewModel> AdditionalFlags
+        {
+            get => this.additionalFlags;
+            set => SetProperty(ref this.additionalFlags, value, this.OnSettingsChanged);
         }
 
         #endregion
@@ -162,11 +176,16 @@ namespace CompatibilityManager.ViewModels
         {
             if (string.IsNullOrWhiteSpace(registryString)) { return; } // Safeguard
 
-            // Initialize compatibility settings
-            this.compatibilityMode = CompatibilityModeServices.FromRegistryString(registryString);
-            this.colorMode = ColorModeServices.FromRegistryString(registryString);
-            this.dpiScaling = DPIScalingServices.FromRegistryString(registryString);
-            this.otherFlags = OtherFlagsServices.FromRegistryString(registryString);
+            // Initialize event aggregator
+            this.eventAggregator = new EventAggregator();
+
+            // Initialize settings
+            var tuple = RegistryServices.FromRegistryString(registryString);
+            this.compatibilityMode = tuple.Item1;
+            this.colorMode = tuple.Item2;
+            this.dpiScaling = tuple.Item3;
+            this.otherFlags = tuple.Item4;
+            this.additionalFlags = new ObservableRangeCollection<AdditionalFlagViewModel>(tuple.Item5.Select(flag => new AdditionalFlagViewModel(this.eventAggregator, flag)));
 
             // Initialize checkboxes
             this.compatibilityModeChecked = this.compatibilityMode != CompatibilityMode.None;
@@ -175,6 +194,20 @@ namespace CompatibilityManager.ViewModels
             this.resolution640x480Checked = this.otherFlags.HasFlag(OtherFlags.RESOLUTION640X480);
             this.disableFullscreenOptimizationsChecked = this.otherFlags.HasFlag(OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE);
             this.runAsAdministratorChecked = this.otherFlags.HasFlag(OtherFlags.RUNASADMIN);
+
+            // Subscribe events
+            this.SubscribeEvents();
+        }
+
+        #endregion
+
+        #region Event subscriptions
+
+        private SubscriptionToken flagChanged;
+
+        private void SubscribeEvents()
+        {
+            this.flagChanged = this.eventAggregator.GetEvent<FlagChanged>().Subscribe(this.OnSettingsChanged);
         }
 
         #endregion
@@ -209,11 +242,12 @@ namespace CompatibilityManager.ViewModels
         {
             var settings = new SettingsViewModel(registryString);
 
-            // Reload compatibility settings
+            // Reload settings
             this.CompatibilityMode = settings.CompatibilityMode != CompatibilityMode.None ? settings.CompatibilityMode : this.CompatibilityMode;
             this.ColorMode = settings.ColorMode != ColorMode.None ? settings.ColorMode : this.ColorMode;
             this.DPIScaling = settings.DPIScaling != DPIScaling.None ? settings.DPIScaling : this.DPIScaling;
             this.OtherFlags = settings.OtherFlags;
+            this.AdditionalFlags = settings.AdditionalFlags;
 
             // Reload checkboxes
             this.CompatibilityModeChecked = settings.CompatibilityModeChecked;
@@ -229,7 +263,8 @@ namespace CompatibilityManager.ViewModels
 
         public string ToRegistryString()
         {
-            return RegistryServices.ToRegistryString(this.CompatibilityMode, this.ColorMode, this.DPIScaling, this.OtherFlags);
+            var additionalFlags = new List<string>(this.AdditionalFlags.Select(flag => flag.Flag));
+            return RegistryServices.ToRegistryString(this.CompatibilityMode, this.ColorMode, this.DPIScaling, this.OtherFlags, additionalFlags);
         }
 
         #endregion
@@ -244,6 +279,7 @@ namespace CompatibilityManager.ViewModels
             this.Resolution640x480Checked = false;
             this.DisableFullscreenOptimizationsChecked = false;
             this.RunAsAdministratorChecked = false;
+            this.AdditionalFlags = new ObservableRangeCollection<AdditionalFlagViewModel>();
         }
 
         #endregion
