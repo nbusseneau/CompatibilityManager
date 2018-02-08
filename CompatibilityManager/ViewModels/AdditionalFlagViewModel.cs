@@ -9,7 +9,7 @@ namespace CompatibilityManager.ViewModels
     {
         private EventAggregator eventAggregator;
 
-        private string flag; 
+        private string flag = string.Empty;
         public string Flag
         {
             get => this.flag;
