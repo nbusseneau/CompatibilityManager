@@ -88,9 +88,10 @@ namespace CompatibilityManager.Services
                 compatibilityMode.ToRegistryString(),
                 colorMode.ToRegistryString(),
                 dpiScaling.ToRegistryString(),
-            }.Where(s => !string.IsNullOrWhiteSpace(s)));
+            });
             substrings.AddRange(otherFlags.ToRegistryString());
             substrings.AddRange(additionalFlags);
+            substrings = substrings.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
 
             // On Windows 8 or above, a tilde is appended at beginning of the string.
             if (substrings.Any() && OSVersionServices.IsWindows8OrAbove)
