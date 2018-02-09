@@ -275,7 +275,7 @@ namespace CompatibilityManager.ViewModels
 
         #region Command executes
 
-        protected void Clear()
+        protected virtual void Clear()
         {
             this.CompatibilityModeChecked = false;
             this.ColorModeChecked = false;

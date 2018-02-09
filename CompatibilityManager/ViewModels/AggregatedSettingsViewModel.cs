@@ -1,6 +1,7 @@
 ﻿using CompatibilityManager.Enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -33,6 +34,7 @@ namespace CompatibilityManager.ViewModels
             this.colorMode = this.Aggregate(settings.Select(s => s.ColorMode));
             this.dpiScaling = this.Aggregate(settings.Select(s => s.DPIScaling));
             this.otherFlags = this.AggregateFlags(settings.Select(s => s.OtherFlags));
+            this.additionalFlags = null;
 
             // Initialize checkboxes
             this.compatibilityModeChecked = this.Aggregate(settings.Select(s => s.CompatibilityModeChecked));
@@ -52,6 +54,9 @@ namespace CompatibilityManager.ViewModels
 
             this.runAsAdministratorChecked = this.Aggregate(settings.Select(s => s.RunAsAdministratorChecked));
             if ((this.runAsAdministratorChecked ?? false) && !this.otherFlags.HasFlag(OtherFlags.RUNASADMIN)) { this.runAsAdministratorChecked = null; }
+
+            // Subscribe events
+            this.SubscribeEvents();
         }
 
         #endregion
@@ -74,6 +79,25 @@ namespace CompatibilityManager.ViewModels
                 if (firstValue.HasFlag(flag) && collection.All(f => f.HasFlag(flag))) { aggregatedValue |= flag; }
             }
             return aggregatedValue;
+        }
+
+        #endregion
+
+        #region Command executes
+
+        protected override void Clear()
+        {
+            this.CompatibilityModeChecked = false;
+            this.ColorModeChecked = false;
+            this.DPIScalingChecked = false;
+            this.Resolution640x480Checked = false;
+            this.DisableFullscreenOptimizationsChecked = false;
+            this.RunAsAdministratorChecked = false;
+
+            foreach (var setting in this.settings)
+            {
+                setting.AdditionalFlags = new ObservableRangeCollection<AdditionalFlagViewModel>();
+            }
         }
 
         #endregion
