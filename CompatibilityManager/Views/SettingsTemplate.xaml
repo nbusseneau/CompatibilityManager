@@ -68,7 +68,8 @@
                             Content="{lex:Loc Clear}"
                             Command="{Binding ClearCommand}" />
 
-                    <StackPanel Grid.Row="7">
+                    <StackPanel Grid.Row="7"
+                                IsEnabled="{Binding AdditionalFlags, Mode=OneWay, Converter={conv:NullCheckToBoolConverter}}">
                         <StackPanel.Resources>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="FontFamily" Value="Segoe UI Symbol" />
