@@ -206,13 +206,28 @@ namespace CompatibilityManager.ViewModels
 
         #region Event subscriptions
 
-        private SubscriptionToken flagChanged;
-        private SubscriptionToken removeCommandIssued;
+        protected SubscriptionToken flagChanged;
+        protected SubscriptionToken removeCommandIssued;
 
-        private void SubscribeEvents()
+        protected virtual void SubscribeEvents()
         {
-            this.flagChanged = this.eventAggregator.GetEvent<FlagChanged>().Subscribe(this.OnSettingsChanged);
+            this.flagChanged = this.eventAggregator.GetEvent<FlagChanged>().Subscribe(this.OnAdditionalFlagChanged);
             this.removeCommandIssued = this.eventAggregator.GetEvent<RemoveCommandIssued>().Subscribe(this.RemoveFlag);
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        protected virtual void OnAdditionalFlagChanged()
+        {
+            this.OnSettingsChanged();
+        }
+
+        protected virtual void OnSettingsChanged()
+        {
+            this.HasChanged = true;
+            RaisePropertyChanged(nameof(this.IsCleared));
         }
 
         #endregion
@@ -235,12 +250,6 @@ namespace CompatibilityManager.ViewModels
         {
             Properties.Settings.Default.LastDPIScaling = dpiScaling;
             Properties.Settings.Default.Save();
-        }
-
-        protected void OnSettingsChanged()
-        {
-            this.HasChanged = true;
-            RaisePropertyChanged(nameof(this.IsCleared));
         }
 
         public void ReloadFromRegistryString(string registryString)
@@ -289,11 +298,17 @@ namespace CompatibilityManager.ViewModels
 
         protected void AddFlag()
         {
+            var additionalFlagViewModel = new AdditionalFlagViewModel(this.eventAggregator);
+            this.AddFlag(additionalFlagViewModel);
+        }
+
+        protected virtual void AddFlag(AdditionalFlagViewModel additionalFlagViewModel)
+        {
             this.AdditionalFlags.Add(new AdditionalFlagViewModel(this.eventAggregator));
             this.OnSettingsChanged();
         }
 
-        protected void RemoveFlag(AdditionalFlagViewModel additionalFlagViewModel)
+        protected virtual void RemoveFlag(AdditionalFlagViewModel additionalFlagViewModel)
         {
             this.AdditionalFlags.Remove(additionalFlagViewModel);
             this.OnSettingsChanged();
