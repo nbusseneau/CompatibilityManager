@@ -170,6 +170,10 @@ namespace CompatibilityManager.ViewModels
 
         public SettingsViewModel()
         {
+            // Initialize event aggregator
+            this.eventAggregator = new EventAggregator();
+
+            // Initialize commands
             this.ClearCommand = new DelegateCommand(this.Clear);
             this.AddCommand = new DelegateCommand(this.AddFlag);
         }
@@ -177,9 +181,6 @@ namespace CompatibilityManager.ViewModels
         public SettingsViewModel(string registryString) : this()
         {
             if (string.IsNullOrWhiteSpace(registryString)) { return; } // Safeguard
-
-            // Initialize event aggregator
-            this.eventAggregator = new EventAggregator();
 
             // Initialize settings
             var tuple = RegistryServices.FromRegistryString(registryString);
