@@ -33,7 +33,7 @@ namespace CompatibilityManager.ViewModels
             this.compatibilityMode = this.Aggregate(settings.Select(s => s.CompatibilityMode));
             this.colorMode = this.Aggregate(settings.Select(s => s.ColorMode));
             this.dpiScaling = this.Aggregate(settings.Select(s => s.DPIScaling));
-            this.otherFlags = this.AggregateFlags(settings.Select(s => s.OtherFlags));
+            this.otherFlags = this.Aggregate(settings.Select(s => s.OtherFlags));
             this.additionalFlags = null;
 
             // Initialize checkboxes
@@ -70,7 +70,7 @@ namespace CompatibilityManager.ViewModels
             return default(T);
         }
 
-        private OtherFlags AggregateFlags(IEnumerable<OtherFlags> collection)
+        private OtherFlags Aggregate(IEnumerable<OtherFlags> collection)
         {
             var firstValue = collection.First();
             var aggregatedValue = OtherFlags.None;
