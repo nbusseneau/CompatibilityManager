@@ -6,7 +6,7 @@ using System.Windows.Data;
 namespace CompatibilityManager.Converters
 {
     [ValueConversion(typeof(object), typeof(bool))]
-    public class NullCheckToBoolConverter : BaseConverter<NullCheckToBoolConverter>
+    public class NullCheckToBoolConverter : BaseConverter
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

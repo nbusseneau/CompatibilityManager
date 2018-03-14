@@ -5,7 +5,7 @@ using System.Windows.Data;
 namespace CompatibilityManager.Converters
 {
     [ValueConversion(typeof(bool), typeof(bool))]
-    public class InverseBooleanConverter : BaseConverter<InverseBooleanConverter>
+    public class InverseBooleanConverter : BaseConverter
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

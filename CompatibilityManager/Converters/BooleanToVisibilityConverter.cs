@@ -6,7 +6,7 @@ using System.Windows.Data;
 namespace CompatibilityManager.Converters
 {
     [ValueConversion(typeof(bool), typeof(Visibility))]
-    public class BooleanToVisibilityConverter : BaseConverter<BooleanToVisibilityConverter>
+    public class BooleanToVisibilityConverter : BaseConverter
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
