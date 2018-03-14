@@ -158,7 +158,7 @@ namespace CompatibilityManager.ViewModels
 
             this.IsWaiting = true;
 
-            var removedOrModifiedApplications = await Task.Run(() =>
+            var removedApplications = await Task.Run(() =>
             {
                 var taskApplicationsRemoved = new List<ApplicationViewModel>();
                 var taskApplicationsModified = new List<ApplicationViewModel>();
@@ -178,17 +178,18 @@ namespace CompatibilityManager.ViewModels
                         taskApplicationsModified.Add(application);
                     }
                 }
+                
+                foreach (var application in taskApplicationsModified)
+                {
+                    application.ReloadSettings();
+                }
 
-                return new Tuple<IEnumerable<ApplicationViewModel>, IEnumerable<ApplicationViewModel>>(taskApplicationsRemoved, taskApplicationsModified);
+                return taskApplicationsRemoved;
             });
 
-            foreach (var application in removedOrModifiedApplications.Item1)
+            foreach (var application in removedApplications)
             {
                 this.GetApplicationListViewModel(application.RegistryKey).Applications.Remove(application);
-            }
-            foreach (var application in removedOrModifiedApplications.Item2)
-            {
-                application.ReloadSettings();
             }
             this.ComputeAggregatedSettings();
 
