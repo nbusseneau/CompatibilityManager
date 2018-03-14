@@ -138,6 +138,19 @@ namespace CompatibilityManager.ViewModels
             else { return this.HKLMApplications; }
         }
 
+        private async void Reload(IEnumerable<ApplicationViewModel> applications)
+        {
+            this.IsWaiting = true;
+
+            await Task.Run(() =>
+            {
+                foreach (var application in this.SelectedApplications) { application.ReloadSettings(); }
+            });
+            this.ComputeAggregatedSettings();
+
+            this.IsWaiting = false;
+        }
+
         private async void Save(IEnumerable<ApplicationViewModel> applications)
         {
             var warning = MessageBox.Show(Application.Current.MainWindow, Resources.Strings.SaveWarning, Resources.Strings.WarningTitle, MessageBoxButton.OKCancel);
@@ -188,8 +201,7 @@ namespace CompatibilityManager.ViewModels
 
         private void Reload()
         {
-            foreach (var application in this.SelectedApplications) { application.ReloadSettings(); }
-            this.ComputeAggregatedSettings();
+            this.Reload(this.SelectedApplications);
         }
 
         private bool CanReload()
