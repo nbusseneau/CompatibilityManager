@@ -14,7 +14,7 @@
     <Copyright>© 2017 Skymirrh</Copyright>
     <AssemblyVersion>1.0</AssemblyVersion>
     <AssemblyFileVersion>1.0.0</AssemblyFileVersion>
-    <AssemblyInformationalVersion>1.0.0-rc</AssemblyInformationalVersion>
+    <AssemblyInformationalVersion>1.0.0</AssemblyInformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
