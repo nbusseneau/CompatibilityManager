@@ -83,6 +83,7 @@
             </StackPanel>
 
             <Button Grid.Row="1" Grid.Column="2"
+                    Margin="3,0,0,0"
                     Command="{Binding ElevateCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{Binding Source={x:Static services:PrivilegesServices.ShieldIcon}}" Width="15" Margin="0,0,1,0"/>
