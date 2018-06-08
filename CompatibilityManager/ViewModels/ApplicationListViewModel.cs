@@ -120,7 +120,7 @@ namespace CompatibilityManager.ViewModels
         {
             var openFileDialog = new OpenFileDialog()
             {
-                Filter = "Applications (.exe)|*.exe",
+                Filter = "Applications|*.exe",
                 Multiselect = true,
                 CheckPathExists = true,
                 Title = Resources.Strings.AddFilesDescription,
