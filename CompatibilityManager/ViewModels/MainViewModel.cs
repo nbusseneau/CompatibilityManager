@@ -66,6 +66,7 @@ namespace CompatibilityManager.ViewModels
         
         public DelegateCommand ReloadCommand { get; private set; }
         public DelegateCommand SaveCommand { get; private set; }
+
         public DelegateCommand ElevateCommand { get; private set; }
 
         #endregion
@@ -79,6 +80,7 @@ namespace CompatibilityManager.ViewModels
 
             this.ReloadCommand = new DelegateCommand(this.Reload, this.CanReload);
             this.SaveCommand = new DelegateCommand(this.Save, this.CanSave);
+
             this.ElevateCommand = new DelegateCommand(this.Elevate, this.CanElevate);
 
             this.SubscribeEvents();
