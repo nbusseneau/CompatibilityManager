@@ -98,11 +98,6 @@ namespace CompatibilityManager.ViewModels
             this.OnSelectionChanged();
         }
 
-        private void UnsubscribeEvents()
-        {
-            SelectionChanged.Instance.Unsubscribe(this.selectionChanged);
-        }
-
         #endregion
 
         #region Event callbacks
