@@ -74,8 +74,8 @@ namespace CompatibilityManager.ViewModels
 
         private MainViewModel()
         {
-            this.HKCUApplications = new ApplicationListViewModel(Resources.Strings.HKCU, RegistryServices.HKCUKey);
-            this.HKLMApplications = RegistryServices.HKLMKey != null ? new ApplicationListViewModel(Resources.Strings.HKLM, RegistryServices.HKLMKey) : null;
+            this.HKCUApplications = new ApplicationListViewModel(isHKLM: false);
+            this.HKLMApplications = RegistryServices.HKLMKey != null ? new ApplicationListViewModel(isHKLM: true) : null;
 
             this.ReloadCommand = new DelegateCommand(this.Reload, this.CanReload);
             this.SaveCommand = new DelegateCommand(this.Save, this.CanSave);

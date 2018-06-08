@@ -25,9 +25,11 @@ namespace CompatibilityManager.ViewModels
     {
         #region Properties
 
-        public RegistryKey RegistryKey { get; private set; }
+        public bool IsHKLM { get; private set; }
+        public RegistryKey RegistryKey => this.IsHKLM ? RegistryServices.HKLMKey : RegistryServices.HKCUKey;
+        public string Title => this.IsHKLM ? Resources.Strings.HKLM : Resources.Strings.HKCU;
+
         public ObservableRangeCollection<ApplicationViewModel> Applications { get; private set; }
-        public string Title { get; private set; }
 
         #endregion
 
@@ -42,10 +44,10 @@ namespace CompatibilityManager.ViewModels
 
         #region Constructors
 
-        public ApplicationListViewModel(string title, RegistryKey registryKey = null)
+        public ApplicationListViewModel(bool isHKLM = false)
         {
-            this.Title = title;
-            this.RegistryKey = registryKey ?? RegistryServices.HKCUKey;
+            this.IsHKLM = isHKLM;
+            
             this.Applications = new ObservableRangeCollection<ApplicationViewModel>(RegistryServices.GetApplications(this.RegistryKey));
 
             this.AddFolderCommand = new DelegateCommand(this.AddFolder);
