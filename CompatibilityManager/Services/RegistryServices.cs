@@ -3,6 +3,7 @@ using CompatibilityManager.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace CompatibilityManager.Services
@@ -13,6 +14,11 @@ namespace CompatibilityManager.Services
 
         private const string W8Prefix = "~";
         private const string AppCompatFlagsRegistryKey = @"Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
+
+        private const string LastKeyRegistryKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit";
+        private const string LastKeyValueName = @"LastKey";
+        private static string HKCU = $@"HKCU\{AppCompatFlagsRegistryKey}";
+        private static string HKLM = $@"HKLM\{AppCompatFlagsRegistryKey}";
 
         public static RegistryKey HKCUKey { get; } = GetRegistryKey(hklm: false);
         public static RegistryKey HKLMKey { get; } = GetRegistryKey(hklm: true);
@@ -101,6 +107,32 @@ namespace CompatibilityManager.Services
 
             var appCompatFlags = string.Join(" ", substrings);
             return appCompatFlags;
+        }
+
+        /// <summary>
+        /// Open Regedit at AppCompatFlags registry location.
+        /// </summary>
+        public static void OpenRegedit(bool hklm = false)
+        {
+            foreach (var process in Process.GetProcessesByName("regedit")) { process.Kill(); }
+            Registry.SetValue(LastKeyRegistryKey, LastKeyValueName, hklm ? HKLM : HKCU);
+            Process.Start("regedit");
+        }
+
+        /// <summary>
+        /// Import .reg file (requires elevated privileges).
+        /// </summary>
+        public static void ImportReg(string filename)
+        {
+            Process.Start("reg", $"import \"{filename}\"").WaitForExit();
+        }
+
+        /// <summary>
+        /// Export .reg file of AppCompatFlags registry settings.
+        /// </summary>
+        public static void ExportReg(string filename, bool hklm = false)
+        {
+            Process.Start("reg", $"export \"{(hklm ? HKLM : HKCU)}\" \"{filename}\" /y");
         }
     }
 }
