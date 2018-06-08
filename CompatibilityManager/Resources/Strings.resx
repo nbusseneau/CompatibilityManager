@@ -250,4 +250,19 @@ We're in the middle of some calibrations.</value>
   <data name="AdditionalFlags" xml:space="preserve">
     <value>Additional flags</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Regedit" xml:space="preserve">
+    <value>Regedit</value>
+  </data>
+  <data name="ExportDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImportDescription" xml:space="preserve">
+    <value>Pick a .reg file to import</value>
+  </data>
 </root>

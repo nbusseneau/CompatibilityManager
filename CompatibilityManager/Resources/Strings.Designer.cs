@@ -334,6 +334,24 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ExportDescription {
+            get {
+                return ResourceManager.GetString("ExportDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current User.
         /// </summary>
         public static string HKCU {
@@ -352,12 +370,39 @@ namespace CompatibilityManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string Import {
+            get {
+                return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick a .reg file to import.
+        /// </summary>
+        public static string ImportDescription {
+            get {
+                return ResourceManager.GetString("ImportDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please wait...
         ///We&apos;re in the middle of some calibrations..
         /// </summary>
         public static string PleaseWait {
             get {
                 return ResourceManager.GetString("PleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regedit.
+        /// </summary>
+        public static string Regedit {
+            get {
+                return ResourceManager.GetString("Regedit", resourceCulture);
             }
         }
         
