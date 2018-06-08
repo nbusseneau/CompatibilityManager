@@ -186,7 +186,7 @@ namespace CompatibilityManager.ViewModels
             {
                 this.GetApplicationListViewModel(application.RegistryKey).Applications.Remove(application);
             }
-            this.ComputeAggregatedSettings();
+            this.OnSelectionChanged();
 
             this.IsWaiting = false;
         }
