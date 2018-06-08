@@ -10,9 +10,29 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0"
-                   Content="{Binding Title}" />
-            
+            <DockPanel Grid.Row="0" LastChildFill="True">
+                <Button DockPanel.Dock="Right"
+                        Margin="3,3,0,3"
+                        Tag="&#xE11C;"
+                        Content="{lex:Loc Export}"
+                        Command="{Binding ExportCommand}" />
+
+                <Button DockPanel.Dock="Right"
+                        Margin="3,3,0,3"
+                        Tag="&#xE118;"
+                        Content="{lex:Loc Import}"
+                        Command="{Binding ImportCommand}" />
+
+                <Button DockPanel.Dock="Right"
+                        Margin="3,3,0,3"
+                        Tag="&#xE115;"
+                        Content="{lex:Loc Regedit}"
+                        Command="{Binding RegeditCommand}" />
+
+                <Label DockPanel.Dock="Left"
+                       Content="{Binding Title}" />
+            </DockPanel>
+
             <ScrollViewer Grid.Row="1"
                           Margin="0,0,0,3"
                           HorizontalScrollBarVisibility="Auto"
