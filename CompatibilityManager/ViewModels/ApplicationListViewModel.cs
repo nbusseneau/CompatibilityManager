@@ -37,8 +37,13 @@ namespace CompatibilityManager.ViewModels
 
         public DelegateCommand AddFolderCommand { get; private set; }
         public DelegateCommand AddFilesCommand { get; private set; }
+
         public DelegateCommand SelectAllCommand { get; private set; }
         public DelegateCommand UnselectAllCommand { get; private set; }
+        
+        public DelegateCommand RegeditCommand { get; private set; }
+        public DelegateCommand ImportCommand { get; private set; }
+        public DelegateCommand ExportCommand { get; private set; }
 
         #endregion
 
@@ -52,8 +57,13 @@ namespace CompatibilityManager.ViewModels
 
             this.AddFolderCommand = new DelegateCommand(this.AddFolder);
             this.AddFilesCommand = new DelegateCommand(this.AddFiles);
+
             this.SelectAllCommand = new DelegateCommand(this.SelectAll);
             this.UnselectAllCommand = new DelegateCommand(this.UnselectAll);
+            
+            this.RegeditCommand = new DelegateCommand(this.Regedit);
+            this.ImportCommand = new DelegateCommand(this.Import, this.CanImport);
+            this.ExportCommand = new DelegateCommand(this.Export);
 
             this.SubscribeEvents();
         }
@@ -153,6 +163,43 @@ namespace CompatibilityManager.ViewModels
             this.UnsubscribeEvents();
             foreach (var application in this.Applications) { application.IsSelected = false; }
             this.SubscribeEvents();
+        }
+
+        private void Regedit()
+        {
+            RegistryServices.OpenRegedit(this.IsHKLM);
+        }
+
+        private void Import()
+        {
+            var openFileDialog = new OpenFileDialog() { Filter = "Registry files|*.reg", };
+            if (openFileDialog.ShowDialog(Application.Current.MainWindow).Value)
+            {
+                RegistryServices.ImportReg(openFileDialog.FileName);
+
+                this.UnsubscribeEvents();
+                IsWaitingDisplayed.Instance.Publish(true);
+
+                this.Applications.ClearItems();
+                this.Applications.AddRange(RegistryServices.GetApplications(this.RegistryKey));
+
+                IsWaitingDisplayed.Instance.Publish(false);
+                this.SubscribeEvents();
+            }
+        }
+
+        private bool CanImport()
+        {
+            return PrivilegesServices.IsRunAsAdmin;
+        }
+
+        private void Export()
+        {
+            var saveFileDialog = new SaveFileDialog() { Filter = "Registry files|*.reg", };
+            if (saveFileDialog.ShowDialog(Application.Current.MainWindow).Value)
+            {
+                RegistryServices.ExportReg(saveFileDialog.FileName, this.IsHKLM);
+            }
         }
 
         #endregion
