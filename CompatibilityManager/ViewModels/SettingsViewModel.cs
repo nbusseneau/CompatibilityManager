@@ -95,8 +95,8 @@ namespace CompatibilityManager.ViewModels
             get => this.compatibilityModeChecked;
             set
             {
-                SetEnumProperty(ref this.compatibilityMode, Properties.Settings.Default.LastCompatibilityMode, value, nameof(this.CompatibilityMode));
                 SetProperty(ref this.compatibilityModeChecked, value, this.OnSettingsChanged);
+                SetEnumProperty(ref this.compatibilityMode, Properties.Settings.Default.LastCompatibilityMode, value, nameof(this.CompatibilityMode));
             }
         }
 
@@ -106,8 +106,8 @@ namespace CompatibilityManager.ViewModels
             get => this.colorModeChecked;
             set
             {
-                SetEnumProperty(ref this.colorMode, Properties.Settings.Default.LastColorMode, value, nameof(this.ColorMode));
                 SetProperty(ref this.colorModeChecked, value, this.OnSettingsChanged);
+                SetEnumProperty(ref this.colorMode, Properties.Settings.Default.LastColorMode, value, nameof(this.ColorMode));
             }
         }
 
@@ -117,8 +117,8 @@ namespace CompatibilityManager.ViewModels
             get => this.dpiScalingChecked;
             set
             {
-                SetEnumProperty(ref this.dpiScaling, Properties.Settings.Default.LastDPIScaling, value, nameof(this.DPIScaling));
                 SetProperty(ref this.dpiScalingChecked, value, this.OnSettingsChanged);
+                SetEnumProperty(ref this.dpiScaling, Properties.Settings.Default.LastDPIScaling, value, nameof(this.DPIScaling));
             }
         }
 
@@ -128,8 +128,8 @@ namespace CompatibilityManager.ViewModels
             get => this.resolution640x480Checked;
             set
             {
-                SetFlagProperty(ref this.otherFlags, OtherFlags.RESOLUTION640X480, value, nameof(this.OtherFlags));
                 SetProperty(ref this.resolution640x480Checked, value, this.OnSettingsChanged);
+                SetFlagProperty(ref this.otherFlags, OtherFlags.RESOLUTION640X480, value, nameof(this.OtherFlags));
             }
         }
 
@@ -139,8 +139,8 @@ namespace CompatibilityManager.ViewModels
             get => this.disableFullscreenOptimizationsChecked;
             set
             {
-                SetFlagProperty(ref this.otherFlags, OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE, value, nameof(this.OtherFlags));
                 SetProperty(ref this.disableFullscreenOptimizationsChecked, value, this.OnSettingsChanged);
+                SetFlagProperty(ref this.otherFlags, OtherFlags.DISABLEDXMAXIMIZEDWINDOWEDMODE, value, nameof(this.OtherFlags));
             }
         }
 
@@ -150,8 +150,8 @@ namespace CompatibilityManager.ViewModels
             get => this.runAsAdministratorChecked;
             set
             {
-                SetFlagProperty(ref this.otherFlags, OtherFlags.RUNASADMIN, value, nameof(this.OtherFlags));
                 SetProperty(ref this.runAsAdministratorChecked, value, this.OnSettingsChanged);
+                SetFlagProperty(ref this.otherFlags, OtherFlags.RUNASADMIN, value, nameof(this.OtherFlags));
             }
         }
 
