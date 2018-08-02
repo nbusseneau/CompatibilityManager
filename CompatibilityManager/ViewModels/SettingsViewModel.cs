@@ -319,22 +319,28 @@ namespace CompatibilityManager.ViewModels
         #region SetProperty overrides
 
         /// <summary>
-        /// Set an enum storage to newValue according to bool value, then trigger regular SetProperty.
+        /// Reset an enum property to settingsValue or previously stored value upon checking.
         /// </summary>
-        protected bool SetEnumProperty<TEnum>(ref TEnum storage, TEnum newValue, bool? value, string propertyName)
+        protected bool SetEnumProperty<TEnum>(ref TEnum storage, TEnum settingsValue, bool? isChecked, string propertyName)
              where TEnum : struct, IComparable, IFormattable, IConvertible
         {
             EnumServices.TEnumTypeCheck<TEnum>();
 
-            // Initialize with newValue if checked and enum value is None
-            if ((value ?? false) && storage.Equals(Activator.CreateInstance<TEnum>())) { return SetProperty(ref storage, newValue, propertyName); }
+            // Initialize/reset storage only if checked
+            if (isChecked ?? false)
+            {
+                // Initialize storage with settingsValue if storage value is TEnum.None
+                if (storage.Equals(Activator.CreateInstance<TEnum>())) { return SetProperty(ref storage, settingsValue, propertyName); }
+                // Otherwise, use pre-existing storage value
+                else { RaisePropertyChanged(propertyName); }
+            }
 
             // Do nothing if unchecked
             return false;
         }
 
         /// <summary>
-        /// Flip a specific flag storage according to bool value, then trigger regular SetProperty.
+        /// Flip a specific flag in OtherFlags upon checking.
         /// </summary>
         protected bool SetFlagProperty(ref OtherFlags storage, OtherFlags flag, bool? value, string propertyName)
         {
