@@ -257,9 +257,9 @@ namespace CompatibilityManager.ViewModels
             var settings = new SettingsViewModel(registryString);
 
             // Reload settings
-            this.CompatibilityMode = settings.CompatibilityMode != CompatibilityMode.None ? settings.CompatibilityMode : this.CompatibilityMode;
-            this.ColorMode = settings.ColorMode != ColorMode.None ? settings.ColorMode : this.ColorMode;
-            this.DPIScaling = settings.DPIScaling != DPIScaling.None ? settings.DPIScaling : this.DPIScaling;
+            this.CompatibilityMode = settings.CompatibilityMode;
+            this.ColorMode = settings.ColorMode;
+            this.DPIScaling = settings.DPIScaling;
             this.OtherFlags = settings.OtherFlags;
             this.AdditionalFlags = new ObservableRangeCollection<AdditionalFlagViewModel>(settings.AdditionalFlags.Select(flag => new AdditionalFlagViewModel(this.eventAggregator, flag.Flag)));
 
