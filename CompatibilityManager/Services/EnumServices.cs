@@ -79,20 +79,29 @@ namespace CompatibilityManager.Services
         {
             TEnumTypeCheck<TEnum>();
 
-            foreach (var kvp in descriptions)
-            {
-                if (substrings.Contains(kvp.Value))
-                {
-                    substrings.Remove(kvp.Value);
-                    return kvp.Key;
-                }
-            }
-            return default(TEnum);
-
-            // For future reference, the reason for using Last instead of First is due to DPIScaling:
+            // For future reference, the reason for such a complicated matching is due to DPIScaling:
             //  DPIScaling.DPIUNAWARE => "DPIUNAWARE"
             //  DPIScaling.GDIDPISCALING => "GDIDPISCALING DPIUNAWARE"
             // Since GDIDPISCALING registry string also contains DPIUNAWARE, we have to make sure we don't use DPIUNAWARE instead of GDIDPISCALING by mistake.
+            // Instead, we match on all separate strings found in the description.
+            var reverse = descriptions.Reverse();
+            foreach (var kvp in reverse)
+            {
+                var match = true;
+                var values = kvp.Value.Split(null);
+
+                foreach (var value in values)
+                {
+                    match &= substrings.Contains(value);
+                }
+
+                if (match)
+                {
+                    foreach (var value in values) { substrings.Remove(value); }
+                    return kvp.Key;
+                }
+            }
+            return default(TEnum);            
         }
     }
 }
