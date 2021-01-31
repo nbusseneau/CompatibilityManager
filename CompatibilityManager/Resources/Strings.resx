@@ -205,6 +205,8 @@ If you pick something stupid like "C:"... well, you have been warned! :)</value>
     <value>This will save settings for each application to the registry.
 If no settings have been selected for an application, it will be removed from the registry entries.
 
+For Steam games, the global configuration changes will apply after restarting Steam.
+
 Confirm?</value>
   </data>
   <data name="WarningTitle" xml:space="preserve">
@@ -264,5 +266,8 @@ We're in the middle of some calibrations.</value>
   </data>
   <data name="ImportDescription" xml:space="preserve">
     <value>Pick a .reg file to import</value>
+  </data>
+  <data name="GlobalConfig" xml:space="preserve">
+    <value>[Global Configuration]</value>
   </data>
 </root>
