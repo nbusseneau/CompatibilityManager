@@ -455,6 +455,8 @@ namespace CompatibilityManager.Resources {
         ///   This will save settings for each application to the registry.
         ///If no settings have been selected for an application, it will be removed from the registry entries.
         ///
+        ///For Steam games, the global configuration changes will apply after restarting Steam.
+        ///
         ///Confirm?과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string SaveWarning {
