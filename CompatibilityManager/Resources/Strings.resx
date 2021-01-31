@@ -265,4 +265,7 @@ We're in the middle of some calibrations.</value>
   <data name="ImportDescription" xml:space="preserve">
     <value>Pick a .reg file to import</value>
   </data>
+  <data name="GlobalConfig" xml:space="preserve">
+    <value>[Global Configuration]</value>
+  </data>
 </root>

@@ -17,20 +17,36 @@ namespace CompatibilityManager.Services
 
         private const string LastKeyRegistryKey = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit";
         private const string LastKeyValueName = @"LastKey";
+
+        private const string HKCUEnvVarRegistryKey = @"Environment";
+        private const string HKLMEnvVarRegistryKey = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
+
+        public const string GlobalCompatEnvVarRegistryName = "__COMPAT_LAYER";
+
         private static string HKCU = $@"HKCU\{AppCompatFlagsRegistryKey}";
         private static string HKLM = $@"HKLM\{AppCompatFlagsRegistryKey}";
 
-        public static RegistryKey HKCUKey { get; } = GetRegistryKey(hklm: false);
-        public static RegistryKey HKLMKey { get; } = GetRegistryKey(hklm: true);
+        public static RegistryKey HKCUKey { get; } = GetRegistryKey(hklm: false, global: false);
+        public static RegistryKey HKLMKey { get; } = GetRegistryKey(hklm: true, global: false);
+        public static RegistryKey HKCUEnvVarKey { get; } = GetRegistryKey(hklm: false, global: true);
+        public static RegistryKey HKLMEnvVarKey { get; } = GetRegistryKey(hklm: true, global: true);
 
         #endregion
 
-        private static RegistryKey GetRegistryKey(bool hklm = false)
+        private static RegistryKey GetRegistryKey(bool hklm = false, bool global = false)
         {
             try
             {
-                if (hklm) { return Registry.LocalMachine.CreateSubKey(AppCompatFlagsRegistryKey); }
-                else { return Registry.CurrentUser.CreateSubKey(AppCompatFlagsRegistryKey); }
+                if (global)
+                {
+                    if (hklm) { return Registry.LocalMachine.CreateSubKey(HKLMEnvVarRegistryKey); }
+                    else { return Registry.CurrentUser.CreateSubKey(HKCUEnvVarRegistryKey); }
+                }
+                else
+                {
+                    if (hklm) { return Registry.LocalMachine.CreateSubKey(AppCompatFlagsRegistryKey); }
+                    else { return Registry.CurrentUser.CreateSubKey(AppCompatFlagsRegistryKey); }
+                }
             }
             catch (UnauthorizedAccessException)
             {
@@ -44,6 +60,17 @@ namespace CompatibilityManager.Services
         public static IEnumerable<ApplicationViewModel> GetApplications(RegistryKey registryKey)
         {
             var applications = new List<ApplicationViewModel>();
+            var regName = registryKey.ToString();
+
+            if (regName.StartsWith("HKEY_CURRENT_USER") || regName.StartsWith("HKCU"))
+            {
+                applications.Add(new ApplicationViewModel(Resources.Strings.GlobalConfig, HKCUEnvVarKey));
+            }
+            else if (regName.StartsWith("HKEY_LOCAL_MACHINE") || regName.StartsWith("HKLM"))
+            {
+                applications.Add(new ApplicationViewModel(Resources.Strings.GlobalConfig, HKLMEnvVarKey));
+            }
+
             foreach (var path in registryKey.GetValueNames())
             {
                 applications.Add(new ApplicationViewModel(path, registryKey));
@@ -56,7 +83,8 @@ namespace CompatibilityManager.Services
         /// </summary>
         public static string GetApplicationRegistryString(RegistryKey key, string path)
         {
-            return (string)key.GetValue(path);
+            var str = path == Resources.Strings.GlobalConfig ? RegistryServices.GlobalCompatEnvVarRegistryName : path;
+            return (string)key.GetValue(str);
         }
 
         /// <summary>

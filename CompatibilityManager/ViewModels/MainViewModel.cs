@@ -6,6 +6,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -59,6 +60,9 @@ namespace CompatibilityManager.ViewModels
         }
 
         public bool IsAnySelected => this.SelectedApplications.Any();
+
+        private const int HWND_BROADCAST = 0xffff;
+        private const uint WM_SETTINGCHANGE = 0x001a;
 
         #endregion
 
@@ -163,16 +167,29 @@ namespace CompatibilityManager.ViewModels
                 foreach (var application in applications)
                 {
                     var appCompatFlags = application.Settings.ToRegistryString();
+                    var path = application.Path == Resources.Strings.GlobalConfig ? RegistryServices.GlobalCompatEnvVarRegistryName : application.Path;
+
                     if (string.IsNullOrWhiteSpace(appCompatFlags))
                     {
-                        try { application.RegistryKey.DeleteValue(application.Path); }
+                        try { application.RegistryKey.DeleteValue(path); }
                         catch (ArgumentException) { } // Trying to delete application that does not exist in registry -- was added by user but no settings specified
-                        finally { taskApplicationsRemoved.Add(application); }
+                        finally
+                        {
+                            if (application.Path != Resources.Strings.GlobalConfig)
+                            {
+                                taskApplicationsRemoved.Add(application);
+                            }
+                        }
                     }
                     else
                     {
-                        application.RegistryKey.SetValue(application.Path, appCompatFlags);
+                        application.RegistryKey.SetValue(path, appCompatFlags);
                         taskApplicationsModified.Add(application);
+                    }
+
+                    if (application.Path == Resources.Strings.GlobalConfig)
+                    {
+                        SendNotifyMessage((IntPtr)HWND_BROADCAST, WM_SETTINGCHANGE, (UIntPtr)0, "Environment"); // Send message for applications to update the environment variable -- this makes changes take effect without restarting Explorer.
                     }
                 }
                 
@@ -226,6 +243,13 @@ namespace CompatibilityManager.ViewModels
         {
             return !PrivilegesServices.IsRunAsAdmin;
         }
+
+        #endregion
+
+        #region DLL Imports
+
+        [DllImport("user32.dll")]
+        static extern bool SendNotifyMessage(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam);
 
         #endregion
     }
